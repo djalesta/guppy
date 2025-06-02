@@ -7,7 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
+User.destroy_all
 require "open-uri"
 path = Rails.root.join('app', 'assets', 'images', 'user_pics', '01.png')
 file = URI.open("#{path}")
