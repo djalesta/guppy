@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  fish_description: MyString
+  color: MyString
+  sex: MyString
+  length: 1.5
+  altitude: 1.5
+  longitude: 1.5
+  user: one
+  availability: false
+
+two:
+  name: MyString
+  fish_description: MyString
+  color: MyString
+  sex: MyString
+  length: 1.5
+  altitude: 1.5
+  longitude: 1.5
+  user: two
+  availability: false
