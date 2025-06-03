@@ -1,0 +1,17 @@
+<h1>Swuppy the Guppy!</h1>
+<p>Let our guppies make beautiful babies!</p>
+
+<div>
+<%= image_tag "other_pics/cartoonish.png", width: "15%", height: "15%" %>
+</div>
+
+<% if user_signed_in? %>
+  <p>Welcome, <%= current_user.email %>!</p>
+  <button style="color:blue; border:none;"> <%=link_to "Let's go!"%> </button>
+  <p><%= button_to "Sign out", destroy_user_session_path, method: :delete %></p>
+
+
+<% else %>
+  <button style="color:blue; border:none;"> <%=link_to "Log in", user_session_path %> </button>
+  <p>Don't have an account? <%= link_to "Sign up!", new_user_registration_path %></p>
+<% end %>
