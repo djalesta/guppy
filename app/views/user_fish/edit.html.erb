@@ -1,2 +1,53 @@
-<h1>UserFish#edit</h1>
-<p>Find me in app/views/user_fish/edit.html.erb</p>
+<h2 class="mb-4">Edit Your Lovely Fish</h2>
+
+<%= form_with model: @fish, url: user_fish_path(@fish), method: :patch, local: true, html: { multipart: true } do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :color %>
+    <%= f.text_field :color, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :length, "Length (cm)" %>
+    <%= f.number_field :length, step: 0.1, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :sex %>
+    <%= f.select :sex, [["Male", true], ["Female", false]], {}, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.check_box :availability %> Available
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :fish_description %>
+    <%= f.text_area :fish_description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :latitude %>
+    <%= f.text_field :latitude, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :longitude %>
+    <%= f.text_field :longitude, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :photos %>
+    <%= f.file_field :photos, class: "form-control" %>
+  </div>
+
+  <div class="mt-5 mb-5 text-center">
+    <%= f.submit "Update Fish", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none;" %>
+  </div>
+
+  <div style="height: 100px;"></div>
+<% end %>
