@@ -1,0 +1,17 @@
+<h2 class="mb-4">My Fish Tank</h2>
+
+<%= link_to "Upload New Fish", new_fish_path, class: "btn btn-primary w-100 mb-3" %>
+
+<% @fish.each do |fish| %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5><%= fish.name %></h5>
+      <p><%= fish.color %> – <%= fish.length %> cm</p>
+      <p><%= fish.sex ? "Male" : "Female" %></p>
+      <div class="d-flex justify-content-between">
+        <%= link_to "Edit", edit_fish_path(fish), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "Remove", fish_path(fish), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %>
+      </div>
+    </div>
+  </div>
+<% end %>
