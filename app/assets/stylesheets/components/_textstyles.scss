@@ -5,6 +5,8 @@ h1 {
   color: $white;
 }
 
+
+
 h2 {
   font-family: $headers-font;
   font-size: 24px;
@@ -14,9 +16,25 @@ h2 {
 
 h3 {
   font-family: $headers-font;
+  font-size: 24px;
+  font-weight: bold;
+  color: $blue-dark;
+}
+
+
+
+h4 {
+  font-family: $headers-font;
   font-size: 18px;
   font-weight: bold;
   color: $white;
+}
+
+h5 {
+  font-family: $headers-font;
+  font-size: 18px;
+  font-weight: bold;
+  color: $blue-dark;
 }
 
 
@@ -24,4 +42,10 @@ p {
   font-family: $body-font;
   font-size: 14px;
   color: $gray;
+}
+
+h6 {
+  font-family: $body-font;
+  font-size: 14px;
+  color: $white
 }

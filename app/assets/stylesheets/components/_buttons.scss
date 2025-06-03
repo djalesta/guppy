@@ -1,0 +1,13 @@
+.primarybutton {
+  background-color: $blue_dark;
+  color: white;
+  width: 200%;
+  max-width: 300px;
+  border-radius: 20px;
+  margin: 8px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 18px;
+  text-decoration: none;
+}
