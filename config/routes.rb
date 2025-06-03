@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
    root to: "pages#landing"
+
+   get "frontend-conventions", to: "frontend#displayconventions"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :fish
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

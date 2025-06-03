@@ -26,6 +26,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "sassc-rails"
+
 gem "bootstrap", "~> 5.2"
 gem "simple_form"
 gem "sassc-rails"
@@ -72,3 +74,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "font-awesome-sass", "~> 6.7"
