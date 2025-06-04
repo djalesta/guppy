@@ -49,13 +49,12 @@
 
 /* Dropdown Menu */
 .dropdown-content {
-    display: none;
     position: absolute;
     background-color: white;
     min-width: 150px;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
     border-radius: 5px;
-    top: 30px;
+    top: 50px;
     left: 0;
 }
 
@@ -71,3 +70,6 @@
 }
 
 
+.hidden {
+    display: none;
+}
