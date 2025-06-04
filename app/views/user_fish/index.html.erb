@@ -1,0 +1,17 @@
+<h2 class="mb-4">My Fish Tank</h2>
+
+<%= link_to "Upload New Fish", new_user_fish_path, class: "btn w-100 mb-3", style: "background-color: #2D8BA5; color: white; border: none;" %>
+
+<% @fish.each do |fish| %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5><%= fish.name %></h5>
+      <p><%= fish.color %> – <%= fish.length %> cm</p>
+      <p><%= fish.sex ? "Male" : "Female" %></p>
+      <div class="d-flex justify-content-between">
+        <%= link_to "Edit", edit_user_fish_path(fish), class: "btn btn-sm", style: "background-color: #94D2E3; color: white; border: none;" %>
+        <%= link_to "Remove", user_fish_path(fish), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm", style: "background-color: #94D2E3; color: white; border: none;" %>
+      </div>
+    </div>
+  </div>
+<% end %>
