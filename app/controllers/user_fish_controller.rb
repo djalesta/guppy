@@ -22,15 +22,20 @@ class UserFishController < ApplicationController
   end
 
   def edit
+    @fish = current_user.fish.find(params[:id])
   end
 
   def update
-    if @fish.update(fish_params)
-      redirect_to user_fish_index_path, notice: "Fish updated successfully."
-    else
-      render :edit, status: :unprocessable_entity
+  if @fish.update(fish_params.except(:photos))
+    if params[:fish][:photos].present?
+      @fish.photos.attach(params[:fish][:photos])
     end
+    redirect_to user_fish_index_path, notice: "Fish updated successfully."
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
+
 
   def destroy
     @fish.destroy
@@ -44,6 +49,6 @@ class UserFishController < ApplicationController
   end
 
   def fish_params
-    params.require(:fish).permit(:name, :fish_description, :color, :sex, :length, :latitude, :longitude, :availability, :photo)
+    params.require(:fish).permit(:name, :fish_description, :color, :sex, :length, :latitude, :longitude, :availability, photos: [])
   end
 end

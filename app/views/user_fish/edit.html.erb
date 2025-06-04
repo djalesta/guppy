@@ -1,4 +1,10 @@
-<h2 class="mb-4">Edit Your Lovely Fish</h2>
+<div class="d-flex justify-content-center">
+<div class="container" style="max-width: 900px;">
+
+  <h1 class="text-center mb-4">
+      <%= action_name == "edit" ? "Edit Your Lovely Fish" : "Update Fish" %>
+  </h1>
+
 
 <%= form_with model: @fish, url: user_fish_path(@fish), method: :patch, local: true, html: { multipart: true } do |f| %>
   <div class="mb-3">
@@ -8,7 +14,7 @@
 
   <div class="mb-3">
     <%= f.label :color %>
-    <%= f.text_field :color, class: "form-control" %>
+    <%= f.select :color, ["Purple", "Black", "White", "Green", "Yellow", "Pink", "Red", "Orange", "Blue"], {}, class: "form-control mb-2" %>
   </div>
 
   <div class="mb-3">
@@ -18,7 +24,7 @@
 
   <div class="mb-3">
     <%= f.label :sex %>
-    <%= f.select :sex, [["Male", true], ["Female", false]], {}, class: "form-control" %>
+    <%= f.select :sex, ["Male", "Female"], {}, class: "form-control mb-2" %>
   </div>
 
   <div class="mb-3">
@@ -42,7 +48,7 @@
 
   <div class="mb-3">
     <%= f.label :photos %>
-    <%= f.file_field :photos, class: "form-control" %>
+    <%= f.file_field :photos, class: "form-control", multiple: true %>
   </div>
 
   <div class="mt-5 mb-5 text-center">
@@ -51,3 +57,5 @@
 
   <div style="height: 100px;"></div>
 <% end %>
+</div>
+</div>
