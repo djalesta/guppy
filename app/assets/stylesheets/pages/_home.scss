@@ -1,1 +1,32 @@
 // Specific CSS for your home-page
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.video-container video {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    display: block;
+    text-align: center;
+  }
+
+  .video-container video {
+    width: 80%;
+  }
+}
+
+.center-page {
+  display: grid;
+  place-items: center; /* Centers both vertically and horizontally */
+  height: 100vh;
+}
+
