@@ -1,17 +1,38 @@
-<h2 class="mb-4">My Fish Tank</h2>
+<h2 class="mb-4 text-center">My Fish Tank</h2>
 
 <%= link_to "Upload New Fish", new_user_fish_path, class: "btn w-100 mb-3", style: "background-color: #2D8BA5; color: white; border: none;" %>
 
 <% @fish.each do |fish| %>
   <div class="card mb-2">
     <div class="card-body">
-      <h5><%= fish.name %></h5>
-      <p><%= fish.color %> – <%= fish.length %> cm</p>
-      <p><%= fish.sex ? "Male" : "Female" %></p>
-      <div class="d-flex justify-content-between">
-        <%= link_to "Edit", edit_user_fish_path(fish), class: "btn btn-sm", style: "background-color: #94D2E3; color: white; border: none;" %>
-        <%= link_to "Remove", user_fish_path(fish), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm", style: "background-color: #94D2E3; color: white; border: none;" %>
+      <div class="d-flex align-items-center">
+
+        <div class="me-3">
+          <% if fish.photos.attached? %>
+            <%= image_tag fish.photos.first, style: "width: 70px; height: 70px; object-fit: cover; border-radius: 50%; border: 2px solid #2D8BA5;" %>
+          <% else %>
+            <div style="width: 70px; height: 70px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #aaa;">
+              <i class="fa-solid fa-fish fa-2x"></i>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="flex-grow-1">
+          <h5 class="mb-1"><%= fish.name %></h5>
+          <p class="mb-1"><%= fish.fish_description %></p>
+          <div class="mb-1 small">
+            <strong>Color:</strong> <%= fish.color %> &nbsp;|&nbsp;
+            <strong>Length:</strong> <%= fish.length %> cm &nbsp;|&nbsp;
+            <strong>Sex:</strong> <%= fish.sex %>
+
+          </div>
+          <div class="d-flex gap-2 mt-2">
+            <%= link_to "Edit", edit_user_fish_path(fish), class: "btn btn-sm", style: "background-color: #2D8BA5; color: white; border: none;" %>
+            <%= button_to "Remove", user_fish_path(fish), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm", style: "background-color: #2D8BA5; color: white; border: none;" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 <% end %>
+<div style="height: 100px;"></div>
