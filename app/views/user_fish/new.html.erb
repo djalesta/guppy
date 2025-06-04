@@ -1,2 +1,37 @@
-<h1>UserFish#new</h1>
-<p>Find me in app/views/user_fish/new.html.erb</p>
+<h2><%= action_name == "edit" ? "Edit Fish" : "Upload New Fish" %></h2>
+
+<%= form_with model: @fish, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control mb-2" %>
+
+  <%= f.label :color %>
+  <%= f.text_field :color, class: "form-control mb-2" %>
+
+  <%= f.label :length %>
+  <%= f.number_field :length, step: 0.1, class: "form-control mb-2" %>
+
+  <%= f.label :sex %>
+  <%= f.select :sex, [["Male", true], ["Female", false]], {}, class: "form-control mb-2" %>
+
+  <%= f.check_box :availability %> Available
+<br>
+  <%= f.label :fish_description, class: "mt-2" %>
+  <%= f.text_area :fish_description, class: "form-control mb-3" %>
+
+  <%= f.label :latitude %>
+  <%= f.text_field :latitude, class: "form-control" %>
+
+  <%= f.label :longitude %>
+  <%= f.text_field :longitude, class: "form-control" %>
+
+  <div class="mb-3">
+  <%= f.label :photos %>
+  <%= f.file_field :photos, class: "form-control" %>
+  </div>
+
+ <div class="mt-5 mb-5 text-center">
+    <%= f.submit "New Fish", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none;" %>
+  </div>
+
+  <div style="height: 100px;"></div>
+<% end %>
