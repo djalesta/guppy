@@ -30,7 +30,14 @@
       <div style="text-align: center; border-radius: 20px; padding: 10px; background-color: #FFFFFF">
         <div>
           <p> <em><%=  @fish.fish_description %></em> </p>
-          <p> <b>Sex:</b> <%=@fish.sex.capitalize%> - <b>Colour:</b> <%=@fish.color.capitalize%> - <b>Lenght:</b> <%=@fish.length%> mm </p>
+          <p> <b>Sex:</b> <%=@fish.sex.capitalize%> - <b>Colour:</b> <%=@fish.color.capitalize%> <br>
+              <b>Lenght:</b> <%=@fish.length%> mm -
+              <b>Available?</b>
+            <% if @fish.availability == true %>
+              🟢
+            <% else %>
+              🔴
+            <% end %></p>
           <p>"location? on map? new window?"</p>
         </div>
 
