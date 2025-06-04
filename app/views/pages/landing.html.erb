@@ -1,17 +1,22 @@
-<h1>Swuppy the Guppy!</h1>
-<p>Let our guppies make beautiful babies!</p>
+<div class="center-page">
+  <div style="text-align: center;">
+    <h1>Swuppy the Guppy!</h1>
+    <p>Let our guppies make beautiful babies!</p>
+  </div>
 
-<div>
-<%= image_tag "other_pics/cartoonish.png", width: "15%", height: "15%" %>
+  <div class="video-container">
+  <%= video_tag "swuppytheguppy.mp4", autoplay: true, loop: true, muted: true, class: "video", style: "border-radius: 20px;" %>
+  </div>
+
+
+  <div style="text-align: center;">
+  <% if user_signed_in? %>
+    <p>Welcome, <%= current_user.email %>!</p>
+    <%= link_to "Let's go!", class: "primarybutton" %>
+    <p><%= button_to "Sign out", destroy_user_session_path, method: :delete %></p>
+  <% else %>
+    <%= link_to "Log in", user_session_path, class: "primarybutton", style: "display: block; margin: auto;" %>
+    <p>Don't have an account? <%= link_to "Sign up!", new_user_registration_path %></p>
+  <% end %>
+  </div>
 </div>
-
-<% if user_signed_in? %>
-  <p>Welcome, <%= current_user.email %>!</p>
-  <button style="color:blue; border:none;"> <%=link_to "Let's go!"%> </button>
-  <p><%= button_to "Sign out", destroy_user_session_path, method: :delete %></p>
-
-
-<% else %>
-  <button style="color:blue; border:none;"> <%=link_to "Log in", user_session_path %> </button>
-  <p>Don't have an account? <%= link_to "Sign up!", new_user_registration_path %></p>
-<% end %>

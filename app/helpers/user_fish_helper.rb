@@ -1,0 +1,2 @@
+module UserFishHelper
+end
