@@ -3,4 +3,7 @@ class FishController < ApplicationController
     @fish = Fish.all
   end
 
+
+
+
 end

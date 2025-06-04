@@ -1,14 +1,42 @@
-<% @fish.each do |fish| %>
+<nav class="indexnav">
+  <div class="container-fluid">
 
-<p><%= fish.fish_description %></p>
+    <!-- Location Dropdown -->
+    <div class="dropdown">
+      <div class="location-dropdown" onclick="toggleDropdown()">
+        Barcelona ˅
+        <div id="dropdown-menu" class="dropdown-content">
+          <%= link_to "Madrid", "#" %>
+          <%= link_to "Seville", "#" %>
+          <%= link_to "Valencia", "#" %>
+        </div>
+      </div>
+      <ul class="dropdown-menu">
+        <li><%= link_to "New Zealand", "#" %></li>
+        <li><%= link_to "Australia", "#" %></li>
+        <li><%= link_to "Canada", "#" %></li>
+      </ul>
+    </div>
 
+    <!-- Filter Button (Aligned Right) -->
+    <div class="ms-auto">
+      <%= link_to "#", class: "filter-link" do %>
+       <%= image_tag "other_pics/filter-icon.jpg", alt: "Filter", class: "filter-image" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
 
-<% end %>
+<h5>Single guppies in you area</h5>
+
 
 
 <div class="container">
-    <div class="item"><%= image_tag "fish_pics/1.jpg" %></div>
-    <div class="item"><%= image_tag "fish_pics/2.jpg" %></div>
-    <div class="item"><%= image_tag "fish_pics/3.jpg" %></div>
-    <div class="item"><%= image_tag "fish_pics/4.jpg" %></div>
+  <% @fish.each do |fish| %>
+    <% if fish.photos.any? %>
+      <div class="item">
+        <%= link_to cl_image_tag(fish.photos.first.key, height: 300, width: 400, crop: :fill), fish_path(fish) %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
