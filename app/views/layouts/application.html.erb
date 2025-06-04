@@ -12,9 +12,11 @@
 
   <body>
     <div class="container p-3">
+    <% unless current_page?(root_path) %>
       <%= render "shared/navbar" %>
-      <%= render "shared/flashes" %>
-      <%= yield %>
+    <% end %>
+    <%= render "shared/flashes" %>
+    <%= yield %>
     </div>
   </body>
 </html>
