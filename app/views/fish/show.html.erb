@@ -1,0 +1,61 @@
+<div>
+
+<div style="display: flex; justify-content: center;">
+  <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% @fish.photos.each_with_index do |photo, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <%= cl_image_tag(photo.key, height: 200, radius: 20, crop: :fill, background: "#94D2E3") %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @fish.photos.count > 1 %>
+      <button class="carousel-control-prev" type="button" data-bs-target="#fishCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#fishCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    <% end %>
+  </div>
+</div>
+
+  <div style="text-align: center;">
+
+      <div>
+        <h2><%= @fish.name %> </h2>
+      </div>
+
+      <div style="text-align: center; border-radius: 20px; padding: 10px; background-color: #FFFFFF">
+        <div>
+          <p> <em><%=  @fish.fish_description %></em> </p>
+          <p> <b>Sex:</b> <%=@fish.sex.capitalize%> - <b>Colour:</b> <%=@fish.color.capitalize%> <br>
+              <b>Lenght:</b> <%=@fish.length%> mm -
+              <b>Available?</b>
+            <% if @fish.availability == true %>
+              🟢
+            <% else %>
+              🔴
+            <% end %></p>
+          <p>"location? on map? new window?"</p>
+        </div>
+
+        <div style="text-align: center;">
+          <%= link_to "Let's make babies! 💘", "#", class: "primarybutton" %>
+        </div>
+
+        <div class="user-info" style= "display: flex; justify-content: center;";>
+          <div>
+              <%= link_to cl_image_tag(@fish.user.photo.key, height: 100, radius: 50, crop: :fill, background: "#FFFFFF"), user_path(@fish.user) %>
+          </div>
+          <div style="text-align: left;">
+            <h3> <%= @fish.user.username %></h3>
+            <p> <em><%=  @fish.user.user_bio  %></em></p>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+</div>
