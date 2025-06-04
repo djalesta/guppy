@@ -1,39 +1,47 @@
-<h2><%= action_name == "edit" ? "Edit Fish" : "Upload New Fish" %></h2>
+<div class="d-flex justify-content-center">
+  <div class="container" style="max-width: 900px;">
 
-<%= form_with model: @fish, url: user_fish_index_path, local: true, html: { multipart: true } do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, class: "form-control mb-2" %>
+    <h1 class="text-center mb-4">
+      <%= action_name == "edit" ? "Edit Fish" : "Upload New Fish" %>
+    </h1>
 
-  <%= f.label :color %>
-  <%= f.select :color, ["Purple", "Black", "White", "Green", "Yellow", "Pink", "Red", "Orange", "Blue"], {}, class: "form-control mb-2" %>
+    <%= form_with model: @fish, url: user_fish_index_path, local: true, html: { multipart: true } do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control mb-2" %>
 
+      <%= f.label :color %>
+      <%= f.select :color, ["Purple", "Black", "White", "Green", "Yellow", "Pink", "Red", "Orange", "Blue"], {}, class: "form-control mb-2" %>
 
-  <%= f.label :length %>
-  <%= f.number_field :length, step: 0.1, class: "form-control mb-2" %>
+      <%= f.label :length %>
+      <%= f.number_field :length, step: 0.1, class: "form-control mb-2" %>
 
-  <%= f.label :sex %>
-  <%= f.select :sex, ["Male", "Female"], {}, class: "form-control mb-2" %>
+      <%= f.label :sex %>
+      <%= f.select :sex, ["Male", "Female"], {}, class: "form-control mb-2" %>
 
-  <%= f.check_box :availability %> Available
-<br>
-  <%= f.label :fish_description, class: "mt-2" %>
-  <%= f.text_area :fish_description, class: "form-control mb-3" %>
+    <div class="mb-3">
+      <%= f.check_box :availability %> Available
+    </div>
 
-  <%= f.label :latitude %>
-  <%= f.text_field :latitude, class: "form-control", value: @fish.latitude || 41.3851 %>
+      <%= f.label :fish_description, class: "mt-2" %>
+      <%= f.text_area :fish_description, class: "form-control mb-3" %>
 
-  <%= f.label :longitude %>
-  <%= f.text_field :longitude, class: "form-control", value: @fish.longitude || 2.1734 %>
+      <%= f.label :latitude %>
+      <%= f.text_field :latitude, class: "form-control", value: @fish.latitude || 41.3851 %>
 
+      <%= f.label :longitude %>
+      <%= f.text_field :longitude, class: "form-control", value: @fish.longitude || 2.1734 %>
 
-  <div class="mb-3">
-  <%= f.label :photos %>
-  <%= f.file_field :photos, class: "form-control", multiple: true %>
+      <div class="mb-3">
+        <%= f.label :photos %>
+        <%= f.file_field :photos, class: "form-control", multiple: true %>
+      </div>
+
+      <div class="mt-5 mb-5 text-center">
+        <%= f.submit "New Fish", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none;" %>
+      </div>
+
+      <div style="height: 100px;"></div>
+    <% end %>
+
   </div>
-
- <div class="mt-5 mb-5 text-center">
-    <%= f.submit "New Fish", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none;" %>
-  </div>
-
-  <div style="height: 100px;"></div>
-<% end %>
+</div>
