@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_03_085124) do
 
   create_table "messages", force: :cascade do |t|
     t.text "content"
-    t.boolean "read_status"
+    t.boolean "read_status" #set default status to unread
     t.datetime "date_created"
     t.integer "match_id", null: false
     t.integer "user_id", null: false

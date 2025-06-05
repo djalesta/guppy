@@ -19,7 +19,8 @@ def create
   @match.user = current_user
   @match.fish = @fish
   @match.status = :pending
-  # have to manually set thing things after match.new
+
+   # have to manually set thing things after match.new
   if @match.save
     redirect_to @fish, notice: "Match request created successfully!"
   else
@@ -32,7 +33,7 @@ end
 private
 
   def match_params
-    params.require(:match).permit(:start_date, :end_date, messages_attributes: [:content])
+    params.require(:match).permit(:start_date, :end_date, messages_attributes: [:content, :user_id])
   end
 
 end
