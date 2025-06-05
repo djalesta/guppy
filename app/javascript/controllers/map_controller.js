@@ -23,7 +23,7 @@ export default class extends Controller {
     this.markersValue.forEach((fish) => {
       console.log(fish.info_window_html); // ✅ Confirm this is not undefined
       const popup = new mapboxgl.Popup().setHTML(fish.info_window_html)
-      new mapboxgl.Marker()
+      new mapboxgl.Marker({ color: " #2D8BA5" })
         .setLngLat([fish.lng, fish.lat])
         .setPopup(popup)
         .addTo(this.map);

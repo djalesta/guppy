@@ -1,4 +1,11 @@
-<div>
-  <h3><%= fish.name %></h3>
-  <p><%= fish.fish_description %></p>
+<div style="text-align: center;">
+
+<h5><%= fish.name %></h5>
+  <div>
+    <% if fish.photos.attached? %>
+      <%= image_tag fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %> 
+    <% else %>
+      <p>No image available</p>
+    <% end %>
+  </div>
 </div>
