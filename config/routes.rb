@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-   root to: "pages#landing"
+  root to: "pages#landing"
+  get '/profile', to: 'profiles#show', as: :profile
+  get "frontend-conventions", to: "frontend#displayconventions"
+  get "/inbox", to: "messages#inbox", as: :inbox
 
-   get "frontend-conventions", to: "frontend#displayconventions"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :user_fish
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :matches
 
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
