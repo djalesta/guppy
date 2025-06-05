@@ -1,0 +1,25 @@
+  <h1 class="text-center mb-4">
+      <%= action_name == "edit" ? "Edit My Profile" : "My Profile" %>
+  </h1>
+    <% if current_user.photo.attached? %>
+      <%= image_tag current_user.photo, class: "rounded-circle mb-2 d-block mx-auto", style: "width: 120px; height: 120px; object-fit: cover; border: 3px solid white;" %>
+    <% else %>
+      <div class="rounded-circle d-flex justify-content-center align-items-center mb-2 mx-auto"
+          style="width: 120px; height: 120px; background-color: #F4F4F4; border: 3px solid white;">
+        <i class="fa-solid fa-user fa-2x text-muted"></i>
+      </div>
+    <% end %>
+
+
+  <h2 class="fw-semibold text-center mb-4">
+    <%= current_user.username.present? ? current_user.username : current_user.email %>
+  </h2>
+
+
+  <div class="d-grid gap-3 px-4">
+    <%= link_to "My fish", user_fish_index_path, class: "primarybutton" %>
+    <%= link_to "My requests", matches_path, class: "primarybutton" %>
+    <%= link_to "Inbox", inbox_path, class: "primarybutton" %>
+    <%= link_to "Settings", edit_user_registration_path, class: "primarybutton" %>
+  </div>
+</div>
