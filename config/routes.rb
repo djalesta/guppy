@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   resources :user_fish
 
   resources :fish do
-    
+
     resources :matches do
       resources :messages, only: [:create, :destroy]
+      resources :reviews, only: [:new, :create]
     end
 
     member do
