@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   resources :user_fish
 
   resources :fish do
-    resources :matches
+    
+    resources :matches do
+      resources :messages, only: [:create, :destroy]
+    end
 
     member do
       get :match

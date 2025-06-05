@@ -9,6 +9,7 @@ class MatchesController < ApplicationController
     @fish = Fish.find(params[:fish_id])
     @User = current_user
     @match = Match.new
+    @match.messages.build
   end
 
 def create
@@ -31,7 +32,7 @@ end
 private
 
   def match_params
-    params.require(:match).permit(:start_date, :end_date)
+    params.require(:match).permit(:start_date, :end_date, messages_attributes: [:content])
   end
 
 end

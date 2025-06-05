@@ -3,4 +3,7 @@ class Match < ApplicationRecord
   belongs_to :user
   has_many :messages, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
+  accepts_nested_attributes_for :messages, :reviews
+
 end
