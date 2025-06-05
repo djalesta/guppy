@@ -1,0 +1,7 @@
+<h1>New Match</h1>
+
+<%= simple_form_for [@fish, @match], url: fish_matches_path(@fish), local: true do |f| %>
+  <%= f.input :start_date, as: :date %>
+  <%= f.input :end_date, as: :date %>
+  <%= f.submit "Create Match", class: "btn btn-primary" %>
+<% end %>
