@@ -1,0 +1,39 @@
+<div class= "d-flex justify-content-center py-2">
+  <h1>Owner Profile</h1>
+</div>
+
+
+<div class="user-info py-4" style= "display: flex; justify-content: center;";>
+          <div>
+            <%= link_to cl_image_tag(@user.photo.key, height: 100, width: 100, crop: :fill, radius: 50, background: "#FFFFFF"), user_path(@user) %>
+          </div>
+
+          <div style="text-align: left;">
+            <h3> <%= @user.username %></h3>
+            <p> <em><%=  @user.user_bio  %></em></p>
+          </div>
+</div>
+
+
+<h3>Other fish that the owner has:</h3>
+
+<div class="fish-container d-flex flex-wrap justify-content-center pt-4">
+  <% @user.fish.each do |fish| %>
+    <% if fish.photos.any? %>
+      <div class="item m-3 p-3 shadow" style="width: 300px; text-align: center;">
+        <%= link_to cl_image_tag(fish.photos.first.key, height: 300, width: 400, crop: :fill), fish_path(fish) %>
+
+        <% fish.photos[1..].each do |photo| %> <!-- Displays additional images -->
+          <%= cl_image_tag(photo.key, width: 200, height: 150, crop: :fill, radius: 20, class: "mt-2") %>
+        <% end %>
+
+        <h3><%= fish.name %></h3>
+
+      </div>
+    <% else %>
+      <p>No image available</p>
+    <% end %>
+  <% end %>
+</div>
+
+<div style="height: 100px;"></div>
