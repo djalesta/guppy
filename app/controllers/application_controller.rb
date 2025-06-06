@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :photo])
     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :photo])
   end
+
+  def after_sign_in_path_for(user)
+    fish_index_path
+  end
 end

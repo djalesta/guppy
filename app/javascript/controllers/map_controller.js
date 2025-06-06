@@ -21,14 +21,18 @@ export default class extends Controller {
 
   #addFishToMap() {
     this.markersValue.forEach((fish) => {
-      console.log(fish.info_window_html); // ✅ Confirm this is not undefined
-      const popup = new mapboxgl.Popup().setHTML(fish.info_window_html)
-      new mapboxgl.Marker({ color: " #2D8BA5" })
-        .setLngLat([fish.lng, fish.lat])
-        .setPopup(popup)
-        .addTo(this.map);
+        console.log(fish.info_window_html);
+        const popup = new mapboxgl.Popup().setHTML(fish.info_window_html);
+
+        const markerElement = document.createElement("div");
+        markerElement.innerHTML = `<i class='fa-solid fa-fish-fins' style='color: #2D8BA5 !important; font-size: 34px;'></i>`;
+
+        new mapboxgl.Marker({ element: markerElement })
+            .setLngLat([fish.lng, fish.lat])
+            .setPopup(popup)
+            .addTo(this.map);
     });
-  }
+    }
 
   #fitMapToMarkers() {
   const bounds = new mapboxgl.LngLatBounds()
