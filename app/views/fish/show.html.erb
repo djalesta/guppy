@@ -38,8 +38,12 @@
             <% else %>
               🔴
             <% end %></p>
-          <p>"location? on map? new window?"</p>
-        </div>
+
+        <%= link_to map_index_path, { style: "text-decoration: none;" } do %>
+          <p >
+          <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important; "></i> Location
+          </p>
+          <% end %>
 
         <div style="text-align: center;">
           <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
