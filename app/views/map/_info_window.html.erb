@@ -1,9 +1,13 @@
 <div style="text-align: center;">
 
+<%= link_to fish_path(fish), style:"text-decoration: none;  border: none; outline: none;" do %>
 <h5><%= fish.name %></h5>
+  <% end %>
   <div>
     <% if fish.photos.attached? %>
-      <%= image_tag fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %> 
+      <%= link_to fish_path(fish) do %>
+      <%= image_tag fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
+      <% end %>
     <% else %>
       <p>No image available</p>
     <% end %>
