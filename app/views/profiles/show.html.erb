@@ -2,8 +2,8 @@
   <%= action_name == "edit" ? "Edit My Profile" : "My Profile" %>
 </h1>
 
-<% average_score = (current_user.reviews.average(:score).to_f * 2).round / 2.0 %>
-<% review_count = current_user.reviews.count %>
+<% average_score = (@user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
+<% review_count = @user.received_reviews.count %>
 
 <div class="d-flex justify-content-center mb-2">
   <div class="position-relative" style="width: 120px; height: 120px;">
@@ -39,12 +39,17 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reviewModalLabel">My Reviews</h5>
+        <h5 class="modal-title" id="reviewModalLabel">Reviews</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
+        <h6 class="mb-3 text-primary">⭐ My Reviews (You wrote)</h6>
         <% current_user.reviews.each do |review| %>
           <div class="mb-3 p-2 border rounded">
+            <strong class="d-block text-muted mb-1">
+              Sent to: <%= review.match.fish.user.username %>
+            </strong>
             <% review.score.times do %>
               <i class="fa-solid fa-star text-warning"></i>
             <% end %>
@@ -55,6 +60,26 @@
             <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
           </div>
         <% end %>
+
+        <hr>
+
+        <h6 class="mb-3" style="color: #2D8BA5;">⭐ Received Reviews (You received)</h6>
+        <% current_user.received_reviews.each do |review| %>
+          <div class="mb-3 p-2 border rounded">
+            <strong class="d-block text-muted mb-1">
+              From: <%= review.user.username %>
+            </strong>
+            <% review.score.times do %>
+              <i class="fa-solid fa-star text-success"></i>
+            <% end %>
+            <% (5 - review.score).times do %>
+              <i class="fa-regular fa-star text-muted"></i>
+            <% end %>
+            <p class="mb-0 mt-1"><%= review.comment %></p>
+            <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
+          </div>
+        <% end %>
+
       </div>
     </div>
   </div>

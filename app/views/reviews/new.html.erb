@@ -1,22 +1,28 @@
-<h2>Leave a Review</h2>
+<h1 class="text-center mb-4">
+  Leave a Review
+</h1>
 
 <%= form_with model: [@fish, @match, @review], local: true do |f| %>
-  <div class="mb-3">
-    <%= f.label :score, "Rating" %><br>
+<div class="mb-3 text-center">
+  <%= f.label :score, "Rating", class: "label-custom" %>
+  <div class="star-rating">
     <% 5.downto(1) do |i| %>
       <%= f.radio_button :score, i, id: "star#{i}" %>
-      <%= label_tag "star#{i}" do %>
-        <i class="fa-solid fa-star"></i>
-      <% end %>
+      <label for="star<%= i %>">
+        ★
+      </label>
     <% end %>
   </div>
+</div>
 
-  <div class="mb-3">
-    <%= f.label :comment %>
+  <div class="text-center mb-4">
+    <%= f.label :comment, "Comment", class: "label-custom" %>
     <%= f.text_area :comment, class: "form-control" %>
   </div>
 
-  <%= f.submit "Submit Review", class: "btn btn-primary" %>
+  <div class="text-center">
+    <%= f.submit "Submit Review", class: "primarybutton", style: "border: none;" %>
+  </div>
 <% end %>
 
 <hr>
@@ -28,7 +34,7 @@
     <strong><%= review.user.username %></strong><br>
 
     <% review.score.times do %>
-      <i class="fa-solid fa-star text-warning"></i>
+      <i class="fa-solid fa-star" style="color: #2D8BA5;"></i>
     <% end %>
 
     <% (5 - review.score).times do %>
