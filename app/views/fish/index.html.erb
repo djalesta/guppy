@@ -45,7 +45,7 @@
 
 
 <div class="d-flex justify-content-center py-3">
-  <h3 class="text-center">Single guppies in your area</h3>
+  <h2 class="text-center">Single guppies in your area</h2>
 </div>
 
 
@@ -54,7 +54,7 @@
   <% @fish.each do |fish| %>
     <% if fish.photos.any? %>
       <div class="item">
-        <h2 class="fish-name"><%= fish.name %></h2>
+        <h5 class="fish-name"><%= fish.name %></h5>
         <%= link_to cl_image_tag(fish.photos.first.key, class: "rounded-fish", height: 200, width: 275, crop: :fill), fish_path(fish) %>
       </div>
     <% end %>

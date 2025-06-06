@@ -2,7 +2,7 @@
   <div class="container" style="max-width: 900px;">
 
     <h1 class="text-center mb-4">
-      <%= action_name == "edit" ? "Edit Fish" : "Upload New Fish" %>
+      <%= action_name == "edit" ? "Edit Fish" : "Upload new fish" %>
     </h1>
 
     <%= form_with model: @fish, url: user_fish_index_path, local: true, html: { multipart: true } do |f| %>
@@ -37,7 +37,7 @@
       </div>
 
       <div class="mt-5 mb-5 text-center">
-        <%= f.submit "New Fish", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none; border-radius:20px;" %>
+        <%= f.submit "Upload", class: "btn btn-lg", style: "background-color: #2D8BA5; color: white; border: none; border-radius:20px;" %>
       </div>
 
       <div style="height: 100px;"></div>
