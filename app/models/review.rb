@@ -1,5 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :match
-  # has_many :users, through: :matches
+
+  validates :score, inclusion: { in: 1..5 }
+  validates :comment, presence: true
 end

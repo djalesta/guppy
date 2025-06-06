@@ -1,25 +1,86 @@
-  <h1 class="text-center mb-4">
-      <%= action_name == "edit" ? "Edit My Profile" : "My Profile" %>
-  </h1>
+<h1 class="text-center mb-4">
+  <%= action_name == "edit" ? "Edit My Profile" : "My Profile" %>
+</h1>
+
+<% average_score = (@user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
+<% review_count = @user.received_reviews.count %>
+
+<div class="d-flex justify-content-center mb-2">
+  <div class="position-relative" style="width: 120px; height: 120px;">
     <% if current_user.photo.attached? %>
-      <%= image_tag current_user.photo, class: "rounded-circle mb-2 d-block mx-auto", style: "width: 120px; height: 120px; object-fit: cover; border: 3px solid white;" %>
+      <%= image_tag current_user.photo, class: "rounded-circle d-block", style: "width: 120px; height: 120px; object-fit: cover; border: 3px solid white;" %>
     <% else %>
-      <div class="rounded-circle d-flex justify-content-center align-items-center mb-2 mx-auto"
-          style="width: 120px; height: 120px; background-color: #F4F4F4; border: 3px solid white;">
+      <div class="rounded-circle d-flex justify-content-center align-items-center"
+           style="width: 120px; height: 120px; background-color: #F4F4F4; border: 3px solid white;">
         <i class="fa-solid fa-user fa-2x text-muted"></i>
       </div>
     <% end %>
+  </div>
+</div>
 
+<h2 class="fw-semibold text-center mb-4">
+  <%= current_user.username.present? ? current_user.username : current_user.email %>
+  <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#reviewModal" }, class: "ms-2 text-decoration-none" do %>
+    <span style="font-size: 20px;">⭐</span>
+    <span style="font-size: 12px;">
+      <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
+    </span>
+  <% end %>
+</h2>
 
-  <h2 class="fw-semibold text-center mb-4">
-    <%= current_user.username.present? ? current_user.username : current_user.email %>
-  </h2>
+<div class="d-grid gap-3 px-4">
+  <%= link_to "My fish", user_fish_index_path, class: "primarybutton" %>
+  <%= link_to "My requests", matches_path, class: "primarybutton" %>
+  <%= link_to "Inbox", inbox_path, class: "primarybutton" %>
+  <%= link_to "Settings", edit_user_registration_path, class: "primarybutton" %>
+</div>
 
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Reviews</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
 
-  <div class="d-grid gap-3 px-4">
-    <%= link_to "My fish", user_fish_index_path, class: "primarybutton" %>
-    <%= link_to "My requests", matches_path, class: "primarybutton" %>
-    <%= link_to "Inbox", inbox_path, class: "primarybutton" %>
-    <%= link_to "Settings", edit_user_registration_path, class: "primarybutton" %>
+        <h6 class="mb-3 text-primary">⭐ My Reviews (You wrote)</h6>
+        <% current_user.reviews.each do |review| %>
+          <div class="mb-3 p-2 border rounded">
+            <strong class="d-block text-muted mb-1">
+              Sent to: <%= review.match.fish.user.username %>
+            </strong>
+            <% review.score.times do %>
+              <i class="fa-solid fa-star text-warning"></i>
+            <% end %>
+            <% (5 - review.score).times do %>
+              <i class="fa-regular fa-star text-muted"></i>
+            <% end %>
+            <p class="mb-0 mt-1"><%= review.comment %></p>
+            <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
+          </div>
+        <% end %>
+
+        <hr>
+
+        <h6 class="mb-3" style="color: #2D8BA5;">⭐ Received Reviews (You received)</h6>
+        <% current_user.received_reviews.each do |review| %>
+          <div class="mb-3 p-2 border rounded">
+            <strong class="d-block text-muted mb-1">
+              From: <%= review.user.username %>
+            </strong>
+            <% review.score.times do %>
+              <i class="fa-solid fa-star text-success"></i>
+            <% end %>
+            <% (5 - review.score).times do %>
+              <i class="fa-regular fa-star text-muted"></i>
+            <% end %>
+            <p class="mb-0 mt-1"><%= review.comment %></p>
+            <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
   </div>
 </div>

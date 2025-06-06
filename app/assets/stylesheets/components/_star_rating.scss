@@ -1,0 +1,31 @@
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 5px;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    font-size: 32px;
+    color: #fcfcfc;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+
+  input[type="radio"]:checked ~ label {
+    color: #2D8BA5;
+  }
+
+  label:hover,
+  label:hover ~ label {
+    color: #2D8BA5;
+  }
+}
+
+.label-custom {
+  color: #2D8BA5;
+  font-weight: bold;
+}
