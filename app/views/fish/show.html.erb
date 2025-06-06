@@ -24,7 +24,7 @@
   <div style="text-align: center;">
 
       <div>
-        <h2><%= @fish.name %> </h2>
+        <h2 style= "padding-top: 5px;: 5px"><%= @fish.name %> </h2>
       </div>
 
       <div style="text-align: center; border-radius: 20px; padding: 10px; background-color: #FFFFFF">
@@ -42,7 +42,7 @@
         </div>
 
         <div style="text-align: center;">
-          <%= link_to "Let's make babies! 💘", "#", class: "primarybutton" %>
+          <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
         </div>
 
         <div class="user-info" style= "display: flex; justify-content: center;";>
