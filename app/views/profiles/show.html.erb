@@ -1,5 +1,5 @@
 <h1 class="text-center mb-4">
-  <%= action_name == "edit" ? "Edit My Profile" : "My Profile" %>
+  <%= action_name == "edit" ? "Edit my profile" : "My profile" %>
 </h1>
 
 <% average_score = (@user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
