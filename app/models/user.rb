@@ -8,4 +8,10 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_one_attached :photo
+
+def average_score
+  return 0 if reviews.empty?
+  reviews.average(:score).round(1)
+end
+
 end

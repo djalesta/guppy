@@ -1,0 +1,41 @@
+<h2>Leave a Review</h2>
+
+<%= form_with model: [@fish, @match, @review], local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :score, "Rating" %><br>
+    <% 5.downto(1) do |i| %>
+      <%= f.radio_button :score, i, id: "star#{i}" %>
+      <%= label_tag "star#{i}" do %>
+        <i class="fa-solid fa-star"></i>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :comment %>
+    <%= f.text_area :comment, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Submit Review", class: "btn btn-primary" %>
+<% end %>
+
+<hr>
+
+<h3 class="mt-4">All Reviews</h3>
+
+<% @match.reviews.each do |review| %>
+  <div class="card mb-2 p-2">
+    <strong><%= review.user.username %></strong><br>
+
+    <% review.score.times do %>
+      <i class="fa-solid fa-star text-warning"></i>
+    <% end %>
+
+    <% (5 - review.score).times do %>
+      <i class="fa-regular fa-star text-muted"></i>
+    <% end %>
+
+    <p class="mb-1 mt-1"><%= review.comment %></p>
+    <small class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</small>
+  </div>
+<% end %>
