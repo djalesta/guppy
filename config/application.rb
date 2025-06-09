@@ -25,3 +25,9 @@ module Guppy
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+
+
+class Application < Rails::Application
+  # [...]
+  config.active_job.queue_adapter = :solid_queue
+end

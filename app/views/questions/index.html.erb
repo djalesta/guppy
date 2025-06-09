@@ -1,0 +1,10 @@
+<div class="container chatbot chatbot-container">
+  <div class="d-flex justify-content-center p-3">
+    <h3>GuppyT</h3>
+  </div>
+  <div id="questions">
+    <%= render @questions %>
+  </div>
+
+  <%= render "form", question: @question %>
+</div>
