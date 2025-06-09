@@ -71,15 +71,17 @@
           <p><em><%= @fish.user.user_bio %></em></p>
         </div>
       </div>
-
-
       </div>
 
-      <%= link_to public_user_profile_path(@fish.user), class: "text-decoration-none" do %>
-        <i class="fa-solid fa-user-circle fa-2x"></i>
-        <span class="ms-2"><%= @fish.user.username %></span>
+      <% if @next_fish %>
+        <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
+      <% end %>
+      <% if @previous_fish %>
+        <div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
       <% end %>
 
     </div>
   </div>
 </div>
+
+<div style="height: 100px;"></div>
