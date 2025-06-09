@@ -1,8 +1,8 @@
 class MatchesController < ApplicationController
 
-  def index
-    @match = Match.new
-  end
+def index
+  @matches = Match.all.sort_by { |match| [match.user_id == current_user.id ? 1 : 0, -match.created_date.to_i] }
+end
 
 
   def new

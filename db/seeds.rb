@@ -176,3 +176,68 @@ fish.photos.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'fis
 fish = Fish.create!(name: 'Puppy', fish_description: 'A stunning specimen with multiple angles. This fish loves the camera and always poses perfectly.', color: 'blue', sex: 'male', length: '6', latitude: 41.385, longitude: 2.175, availability: true, user_id: users[2].id)
 fish.photos.attach([ 'sample_1.png', 'sample_2.png', 'sample_3.png' ].map { |img| { io: File.open(Rails.root.join('app', 'assets', 'images', 'fish_pics', img)), filename: img, content_type: 'image/png' } })
 puts "Finished! Created #{Fish.count} fish."
+
+Match.create!(
+  start_date: Date.today,
+  end_date: Date.today + 7,
+  created_date: Date.today,
+  status: "pending",
+  fish_id: Fish.last.id,
+  user_id: User.first.id
+)
+
+Match.create!(
+  start_date: Date.today,
+  end_date: Date.today + 3,
+  created_date: Date.today,
+  status: "confirmed",
+  fish_id: Fish.second.id,
+  user_id: User.first.id
+)
+
+Match.create!(
+  start_date: Date.today,
+  end_date: Date.today + 3,
+  created_date: Date.today - 1,
+  status: "declined",
+  fish_id: Fish.third.id,
+  user_id: User.first.id
+)
+
+Match.create!(
+  start_date: Date.today - 7,
+  end_date: Date.today - 1,
+  created_date: Date.today - 8,
+  status: "expired",
+  fish_id: Fish.fourth.id,
+  user_id: User.first.id
+)
+
+Match.create!(
+  start_date: Date.today - 4,
+  end_date: Date.today - 1,
+  created_date: Date.today - 5,
+  status: "completed",
+  fish_id: Fish.fifth.id,
+  user_id: User.first.id
+)
+
+user_first = User.first
+fish = Fish.where(user_id: user_first.id).first
+another_user = User.where.not(id: user_first.id).first # Find another user
+
+if fish && another_user
+  Match.create!(
+    start_date: Date.today,
+    end_date: Date.today + 7,
+    status: "pending",
+    created_date: Date.today,
+    fish_id: fish.id,
+    user_id: another_user.id
+  )
+  puts "Created a match for a fish owned by User.first, assigned to another user!"
+else
+  puts "Could not find a suitable fish or another user."
+end
+
+puts "Finished! Created #{Match.count} matches."
