@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center py-2">
+  <h1>Owner profile</h1>
+</div>
+
+<div class="user-info py-4 d-flex justify-content-center align-items-center gap-4">
+  <div>
+    <% if @user.photo.attached? %>
+      <%= cl_image_tag(@user.photo.key, height: 100, width: 100, crop: :fill, background: "#FFFFFF", class: "rounded-circle border") %>
+    <% else %>
+      <i class="fa-solid fa-user fa-4x text-muted"></i>
+    <% end %>
+  </div>
+
+  <div style="text-align: left;">
+    <% average_score = (@user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
+    <% review_count = @user.received_reviews.count %>
+
+    <h3 class="mb-1">
+      <%= @user.username %>
+      <span class="ms-2" style="font-size: 18px;">
+        ⭐ <span style="font-size: 14px; color: #2D8BA5;">
+          <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
+        </span>
+      </span>
+    </h3>
+
+    <p class="text-muted"><em><%= @user.user_bio %></em></p>
+
+    <% if @user.respond_to?(:location) && @user.location.present? %>
+      <p class="text-muted"><i class="fa-solid fa-location-dot"></i> <%= @user.location %></p>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<h2 class="text-center mt-4 mb-3">Owner's fish tank</h2>
+
+<div class="d-flex flex-wrap justify-content-center gap-4 px-4 py-2">
+  <% @fishes.each do |fish| %>
+    <div class="text-center shadow-sm p-2 rounded" style="width: 140px; background-color: #F8FAFB;">
+      <% if fish.photos.any? %>
+        <%= link_to fish_path(fish) do %>
+          <div style="width: 120px; height: 120px; background-color: white;" class="d-flex justify-content-center align-items-center border rounded mb-2 overflow-hidden">
+            <%= cl_image_tag(
+              fish.photos.first.key,
+              width: 120,
+              height: 120,
+              crop: :pad,
+              gravity: :center,
+              background: "white"
+            ) %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="bg-light border d-flex justify-content-center align-items-center mb-2 rounded" style="width: 120px; height: 120px;">
+          <i class="fa-solid fa-fish fa-2x text-muted"></i>
+        </div>
+      <% end %>
+      <h6 class="mb-0" style="color: #2D8BA5;"><%= fish.name %></h6>
+    </div>
+  <% end %>
+</div>
+
+
+<hr>
+
+<h2 class="text-center mt-5 mb-3">Reviews received</h2>
+
+<% if @reviews.any? %>
+   <div class="d-flex flex-column align-items-center">
+  <% @reviews.each do |review| %>
+    <div class="mb-3 p-3 border shadow-sm bg-white" style="max-width: 700px; width: 100%; border-radius: 20px;">
+      <p class="mb-1" style="color: #2D8BA5;"><strong>From:</strong> <%= review.user.username %></p>
+      <div class="mb-1">
+        <% review.score.times do %>
+          <i class="fa-solid fa-star" style="color: #2D8BA5 !important;"></i>
+        <% end %>
+        <% (5 - review.score).times do %>
+          <i class="fa-regular fa-star text-muted"></i>
+        <% end %>
+      </div>
+      <p class="mb-0" style="color: #2D8BA5;"><%= review.comment %></p>
+      <small style="color: #2D8BA5;"><%= time_ago_in_words(review.created_at) %> ago</small>
+    </div>
+  <% end %>
+</div>
+
+
+<% else %>
+  <p class="text-center text-muted">No reviews received yet.</p>
+<% end %>
+
+<div style="height: 100px;"></div>

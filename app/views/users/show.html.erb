@@ -23,7 +23,7 @@
       <div class="item m-3 p-3 shadow" style="width: 300px; text-align: center;">
         <%= link_to cl_image_tag(fish.photos.first.key, height: 300, width: 400, crop: :fill), fish_path(fish) %>
 
-        <% fish.photos[1..].each do |photo| %> <!-- Displays additional images -->
+        <% fish.photos[1..].each do |photo| %> 
           <%= cl_image_tag(photo.key, width: 200, height: 150, crop: :fill, radius: 20, class: "mt-2") %>
         <% end %>
 

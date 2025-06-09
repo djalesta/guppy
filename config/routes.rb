@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/profile', to: 'profiles#show', as: :profile
   get "frontend-conventions", to: "frontend#displayconventions"
   get "/inbox", to: "messages#inbox", as: :inbox
+  get "/users/:id/profile", to: "users#public_profile", as: :public_user_profile
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
