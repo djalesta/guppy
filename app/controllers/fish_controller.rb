@@ -3,6 +3,9 @@ class FishController < ApplicationController
 
   def show
     @fish = Fish.find(params[:id])
+    @next_fish = Fish.where("id > ?", @fish.id).order(:id).first
+    @previous_fish = Fish.where("id < ?", @fish.id).order(id: :desc).first
+
   end
 
   def index
