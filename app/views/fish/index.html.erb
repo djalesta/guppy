@@ -50,12 +50,14 @@
 
 
 
-<div class="fish-container py-3">
+<div class="fish-container py-3 d-flex flex-wrap gap-3 justify-content-center">
   <% @fish.each do |fish| %>
     <% if fish.photos.any? %>
-      <div class="item">
+      <div class="item text-center">
         <h5 class="fish-name"><%= fish.name %></h5>
-        <%= link_to cl_image_tag(fish.photos.first.key, class: "rounded-fish", height: 200, width: 275, crop: :fill), fish_path(fish) %>
+        <%= link_to fish_path(fish) do %>
+          <%= cl_image_tag(fish.photos.first.key, height: 300, width: 550, crop: :fill, gravity: :auto, class: "rounded-fish") %>
+        <% end %>
       </div>
     <% end %>
   <% end %>
