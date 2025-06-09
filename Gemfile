@@ -33,6 +33,9 @@ gem "sassc-rails"
 gem "cloudinary"
 gem "devise"
 gem "geocoder"
+gem "ruby-openai"
+gem "solid_cable", "~> 1.0.3"
+gem "solid_queue"
 
 
 # Use Redis adapter to run Action Cable in production
