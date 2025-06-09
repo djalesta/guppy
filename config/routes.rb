@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   get '/profile', to: 'profiles#show', as: :profile
   get "frontend-conventions", to: "frontend#displayconventions"
   get "/inbox", to: "messages#inbox", as: :inbox
+  get "/users/:id/profile", to: "users#public_profile", as: :public_user_profile
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :user_fish
+
+  resources :questions, only: [:index, :create]
 
   resources :fish do
 
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
   resources :users
   resources :map
   resources :matches
+  resources :messages
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

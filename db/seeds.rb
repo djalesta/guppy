@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 User.destroy_all
+Match.destroy_all
 require "open-uri"
 path = Rails.root.join('app', 'assets', 'images', 'user_pics', '01.png')
 file = URI.open("#{path}")
@@ -241,3 +242,48 @@ else
 end
 
 puts "Finished! Created #{Match.count} matches."
+
+Review.destroy_all
+
+comments = [
+  "Our fish clicked instantly — love at first splash!",
+  "Fun experience and very responsive owner!",
+  "Lovely match! My fish is swimming happily now.",
+  "Such a smooth interaction — would recommend to others.",
+  "Great vibes and awesome tank setup.",
+  "Owner was kind and helpful throughout.",
+  "Fast response, great communication.",
+  "Excellent match, fish are thriving!",
+  "Absolutely recommend — top fish care!",
+  "Felt like a real underwater romance!",
+  "Bubbly experience with the perfect match!",
+  "Tank was clean and peaceful — 5 stars!",
+  "Very respectful and sweet fish!",
+  "Swim date went better than expected.",
+  "So much fun, fish had a blast!",
+  "Definitely matching again!",
+  "Sweet and easy-going fish owner!",
+  "Best fins in town!",
+  "Loved the energy and harmony!",
+  "Friendly and helpful match-up.",
+  "Top-quality fish and care.",
+  "Quick match and clear communication."
+]
+
+users = User.all
+fishes = Fish.all
+
+fishes.each do |fish|
+  reviewers = users.where.not(id: fish.user_id).sample(5)
+  reviewers.each do |reviewer|
+    match = Match.create!(user: reviewer, fish: fish)
+    Review.create!(
+      user: reviewer,
+      match: match,
+      score: rand(4..5),
+      comment: comments.sample
+    )
+  end
+end
+
+puts "✅ Created #{Match.count} matches and #{Review.count} reviews for #{Fish.count} fish."

@@ -1,0 +1,37 @@
+.chat-preview {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.chat-image {
+  margin-right: 15px;
+}
+
+.chat-info {
+  flex: 1;
+}
+
+.chat-link {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 8px 12px;
+  background-color: $blue-dark;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.chat-link:hover {
+  background-color: #0056b3;
+}
+
+.max-height-chat {
+  max-height: 780px; /* Adjust height as needed */
+  overflow-y: auto; /* Enables scrolling when content overflows */
+  padding: 10px;
+}
