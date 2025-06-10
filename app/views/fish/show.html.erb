@@ -42,7 +42,8 @@
           <% end %>
         </p>
 
-        <%= link_to map_index_path, { style: "text-decoration: none;" } do %>
+        <%= link_to map_index_path(fish_id: @fish.id), { style: "text-decoration: none;" } do %>
+
           <p>
             <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important;"></i> Location
           </p>

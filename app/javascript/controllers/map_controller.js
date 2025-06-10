@@ -19,24 +19,56 @@ export default class extends Controller {
     this.#fitMapToMarkers()
   }
 
-  #addFishToMap() {
-    this.markersValue.forEach((fish) => {
-        console.log(fish.info_window_html);
-        const popup = new mapboxgl.Popup().setHTML(fish.info_window_html);
+  // #addFishToMap() {
+  //   this.markersValue.forEach((fish) => {
+  //       console.log(fish.info_window_html);
+  //       const popup = new mapboxgl.Popup().setHTML(fish.info_window_html);
 
+  //       const markerElement = document.createElement("div");
+  //       markerElement.innerHTML = `<i class='fa-solid fa-fish-fins' style='color: #2D8BA5 !important; font-size: 34px;'></i>`;
+
+  //       new mapboxgl.Marker({ element: markerElement })
+  //           .setLngLat([fish.lng, fish.lat])
+  //           .setPopup(popup)
+  //           .addTo(this.map);
+  //   });
+  //   }
+
+  #addFishToMap() {
+    this.markers = [];
+
+    this.markersValue.forEach((fish) => {
+        const popup = new mapboxgl.Popup().setHTML(fish.info_window_html);
         const markerElement = document.createElement("div");
         markerElement.innerHTML = `<i class='fa-solid fa-fish-fins' style='color: #2D8BA5 !important; font-size: 34px;'></i>`;
 
-        new mapboxgl.Marker({ element: markerElement })
+        const marker = new mapboxgl.Marker({ element: markerElement })
             .setLngLat([fish.lng, fish.lat])
             .setPopup(popup)
             .addTo(this.map);
+
+        marker.getElement().addEventListener("click", () => {
+          this.markers.forEach((m) => {
+              m.getElement().classList.remove("active-marker");
+          });
+
+          markerElement.classList.add("active-marker");
+          marker.togglePopup();
+        });
+
+        if (fish.selected) {
+          markerElement.classList.add("active-marker");
+          marker.togglePopup();
+        }
+
+        this.markers.push(marker);
     });
-    }
+}
 
   #fitMapToMarkers() {
   const bounds = new mapboxgl.LngLatBounds()
   this.markersValue.forEach(fish => bounds.extend([ fish.lng, fish.lat ]))
   this.map.fitBounds(bounds, { padding: 40, maxZoom: 15, duration: 0 })
   }
+
 }
