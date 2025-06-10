@@ -1,0 +1,9 @@
+<% message_class =
+     (defined?(user) && user && message.user_id == user.id) ? 'sent' : 'received' %>
+<div id="message-<%= message.id %>" class="message <%= message_class %>">
+  <small>
+    <strong><%= message.user.username %></strong>
+    <i><%= message.created_at.strftime("%d %b %H:%M") %></i>
+  </small>
+  <div class="message-content"><%= message.content %></div>
+</div>

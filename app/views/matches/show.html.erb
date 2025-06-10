@@ -1,0 +1,106 @@
+<% chat_user = @match.user == current_user ? @match.fish.user : @match.user %>
+<h2 style="text-align:center; font-weight:700; margin-bottom:22px;">
+  Chat with
+  <%= link_to chat_user.username, public_user_profile_path(chat_user),
+        style: "font-weight:700; color:#fff; text-underline-offset:3px;" %>
+</h2>
+
+<%= turbo_stream_from "match_#{@match.id}_messages" %>
+<div id="messages" style="background:#f8fdff; border-radius:18px; min-height:350px; max-height:64vh; overflow-y:auto; margin-bottom:12px; padding:14px;">
+  <% @match.messages.each do |message| %>
+    <div style="display:flex; margin-bottom:10px; <%= message.user == current_user ? 'justify-content:flex-end;' : 'justify-content:flex-start;' %>">
+      <div style="
+        min-width:70px; max-width:70vw; border-radius:18px;
+        <%= message.user == current_user ?
+          'background:linear-gradient(90deg,#2D8BA5 90%,#94D2E3 100%);color:#fff;align-self:flex-end;border-top-right-radius:6px;border-bottom-right-radius:22px;'
+        :
+          'background:#fff;color:#222;border:1.5px solid #94D2E3;align-self:flex-start;border-top-left-radius:6px;border-bottom-left-radius:22px;'
+        %>
+        box-shadow:0 1px 4px rgba(45,139,165,0.08); padding:10px 16px;">
+        <div style="display:flex; align-items:center; margin-bottom:2px;">
+          <span style="font-weight:700;font-size:1em;color:#fff; margin-right:10px;">
+            <%= message.user.username %>
+          </span>
+          <span style="font-size:0.89em; color:#fff; font-weight:500;">
+            <%= message.created_at.strftime("%d %b %H:%M") %>
+          </span>
+        </div>
+        <div style="word-break:break-word;color:#fff;">
+          <%= message.content %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= simple_form_for [@match, @message],
+  html: {
+    class: "message-form d-flex gap-2 mt-3",
+    style: "align-items:center; justify-content:space-between;"
+  },
+  data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |f| %>
+ <%= f.input :content,
+  label: false,
+  placeholder: "Write a message...",
+  input_html: {
+    class: "message-input",
+    style: "border-radius:16px; background:#f8fdff; min-width:0; width:100%; max-width:700px; font-size:1.14em; padding:14px 18px; flex:1 1 400px;"
+  }
+%>
+
+  <%= f.submit "Send",
+    style: "background:#2D8BA5; border-radius:16px; border:none; color:#fff; min-width:120px; font-weight:700; font-size:1.13em; padding:15px 0; flex-shrink:0;"
+  %>
+<% end %>
+
+<div style="display:flex; gap:18px; justify-content:center; margin:30px 0 0 0;">
+  <%= button_to "Match", match_path(@match, status: :matched), method: :patch,
+        class: "btn btn-success",
+        style: "background:#2D8BA5; color:#fff; font-weight:700; border-radius:13px; min-width:110px; font-size:1.07em; border:none; outline:none;"
+  %>
+
+  <%= button_to "Not Match", match_path(@match, status: :not_matched), method: :patch,
+        class: "btn btn-danger",
+        style: "background:#B55D6E; color:#fff; font-weight:700; border-radius:13px; min-width:110px; font-size:1.07em; border:none; outline:none;"
+  %>
+</div>
+
+
+<div style="height: 100px;"></div>
+<script>
+function scrollMessagesToBottom() {
+  var container = document.getElementById('messages');
+  if (container) {
+    container.scrollTop = container.scrollHeight;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', scrollMessagesToBottom);
+
+document.addEventListener('turbo:load', scrollMessagesToBottom);
+document.addEventListener('turbo:frame-load', scrollMessagesToBottom);
+
+document.addEventListener('turbo:before-stream-render', function(e){
+  var container = document.getElementById('messages');
+  if (container) {
+    setTimeout(function(){
+      container.scrollTop = container.scrollHeight;
+    }, 50);
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  var input = document.querySelector('.message-input input, .message-input textarea, input[name="message[content]"], textarea[name="message[content]"]');
+  var form = input && input.form;
+
+  if (input && form) {
+    input.addEventListener('keydown', function(e) {
+      // Shift+Enter yeni satır açsın!
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.querySelector('input[type="submit"],button[type="submit"]')?.click();
+      }
+    });
+  }
+});
+
+</script>

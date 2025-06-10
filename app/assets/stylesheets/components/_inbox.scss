@@ -1,0 +1,27 @@
+.chat-username,
+.chat-date {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+.chat-username:hover,
+.chat-date:hover {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+.unread {
+  background: #e0f6ff !important;
+  font-weight: 700;
+  border-left: 4px solid #2D8BA5;
+}
+.read {
+  background: #f8fdff !important;
+  font-weight: 400;
+  border-left: 4px solid transparent;
+}
+.inbox-list a.chat-preview *,
+.inbox-list a.chat-preview *:hover,
+.inbox-list a.chat-preview *:focus {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
