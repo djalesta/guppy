@@ -1,1 +1,27 @@
-Hi from show
+<div class="d-flex flex-column align-items-center py-4">
+  <h1>Chat with <%= @match.fish.user.username %></h1>
+
+  <div id="messages"
+       class="chat-box rounded shadow-sm p-3 mb-3"
+       style="background:#F8FBFC; width: 100%; max-width: 500px; height: 400px; overflow-y: auto;"
+       data-controller="message"
+       data-message-match-id-value="<%= @match.id %>">
+    <%= render @messages %>
+  </div>
+
+  <div data-controller="message-form"
+      data-message-form-match-id-value="<%= @match.id %>"
+      data-message-form-fish-id-value="<%= @match.fish.id %>">
+
+    <%= form_with model: [@match.fish, @match, Message.new], data: { turbo: false } do |f| %>
+      <div class="input-group mt-2 shadow-sm rounded-pill" style="background: #ffffff; padding: 8px;">
+        <%= f.text_field :content,
+              class: "form-control border-0 rounded-start-pill px-4 py-2",
+              placeholder: "Type a message...",
+              data: { message_form_target: "input" } %>
+        <button class="btn btn-primary rounded-end-pill px-4" style="background:#2D8BA5;">Send</button>
+      </div>
+    <% end %>
+  </div>
+
+</div>

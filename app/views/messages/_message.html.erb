@@ -1,0 +1,12 @@
+<div class="mb-2 d-flex align-items-center">
+  <% if message.user.photo.attached? %>
+    <%= cl_image_tag(message.user.photo.key, height: 40, width: 40, crop: :fill, radius: 20, class: "me-2 border") %>
+  <% else %>
+    <i class="fa-solid fa-user fa-2x text-muted me-2"></i>
+  <% end %>
+  <div class="message-content p-2 rounded" style="background: #E6F7FB;">
+    <strong style="color:#2D8BA5;"><%= message.user.username %></strong>:
+    <span><%= message.content %></span>
+    <span class="ms-2 text-muted" style="font-size:12px;"><%= l(message.created_at, format: :short) %></span>
+  </div>
+</div>
