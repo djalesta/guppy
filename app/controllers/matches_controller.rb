@@ -1,9 +1,8 @@
 class MatchesController < ApplicationController
 
   def index
-    @match = Match.new
+    @matches = Match.all.sort_by { |match| [match.user_id == current_user.id ? 1 : 0, -match.created_date.to_i] }
   end
-
 
   def new
     @fish = Fish.find(params[:fish_id])

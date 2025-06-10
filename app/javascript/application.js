@@ -3,6 +3,3 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "./swipe";
 
-import { Application } from "@hotwired/stimulus"
-
-const application = Application.start()

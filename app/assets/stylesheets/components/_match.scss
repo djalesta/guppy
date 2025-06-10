@@ -2,3 +2,97 @@
   border-radius: 30px; /* Adjust the value for more roundness */
   overflow: hidden; /* Prevents corners from extending beyond the radius */
 }
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+
+.tabs-underlined {
+  display: flex;
+  align-items: center;
+}
+
+.tabs-underlined .tab-underlined {
+  font-family: $body-font;
+  color: black;
+  padding: 8px;
+  margin: 8px;
+  opacity: .4;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 4px solid transparent;
+}
+
+.tabs-underlined .tab-underlined.active {
+  opacity: 1;
+  border-bottom: 3px solid #2D8BA5;
+}
+
+p,
+label {
+  font-family: $body-font;
+  font-size: 14px;
+  color: $gray;
+}
+
+input {
+  margin: 0.4rem;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #2D8BA5;
+}
+
+.notification {
+  font-family: $body-font;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  background: white;
+  padding: 8px 16px;
+  border: 1px solid rgb(235,235,235);
+}
+
+.notification .notification-content {
+  font-family: $body-font;
+  flex-grow: 1;
+  padding: 0 24px;
+}
+
+.notification p {
+  font-family: $body-font;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification small {
+  font-family: $body-font;
+  color: #999999;
+  font-weight: bold;
+}
+.notification .notification-actions {
+  font-family: $body-font;
+  opacity: 0;
+  display: flex;
+  transition: ease .3s;
+}
+
+.notification:hover .notification-actions {
+  opacity: 1;
+}
+
+.notification .notification-actions a {
+  color: #999999;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+.notification .notification-actions a:hover {
+  color: #555555;
+}
