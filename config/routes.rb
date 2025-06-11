@@ -1,20 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#landing"
+
   get '/profile', to: 'profiles#show', as: :profile
   get "frontend-conventions", to: "frontend#displayconventions"
   get "/inbox", to: "messages#inbox", as: :inbox
   get "/users/:id/profile", to: "users#public_profile", as: :public_user_profile
 
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :user_fish
-
   resources :questions, only: [:index, :create]
 
   resources :fish do
-
-    resources :matches do
+    resources :matches, only: [:new, :create, :index, :show] do
       resources :messages, only: [:create, :destroy]
       resources :reviews, only: [:new, :create]
     end
@@ -22,18 +19,16 @@ Rails.application.routes.draw do
     member do
       get :match
     end
+  end
 
+
+  resources :matches, only: [:index, :show] do
+    resources :messages, only: [:create]
   end
 
   resources :users
   resources :map
-  resources :matches
-  resources :messages
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

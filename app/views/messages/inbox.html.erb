@@ -1,0 +1,36 @@
+<h1 class="inbox-title text-center mb-4">Your Chats</h1>
+<div class="inbox-list">
+  <% @matches.each do |match| %>
+    <% last_message = match.messages.last %>
+    <% next unless last_message %>
+    <%= link_to match_path(match), class: "chat-preview d-flex align-items-center p-2 mb-2 rounded #{last_message.user != current_user ? 'unread' : 'read'}" do %>
+      <div class="chat-image me-3">
+        <% if match.fish.user.photo.present? %>
+          <%= cl_image_tag(match.fish.user.photo.key, height: 56, width: 56, crop: :fill, radius: 28, background: "#FFFFFF", class: "avatar") %>
+        <% else %>
+          <%= image_tag "default-avatar.png", height: 56, width: 56, class: "avatar" %>
+        <% end %>
+      </div>
+      <div class="chat-info flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="chat-username" style="border-bottom:none; text-decoration:none;">
+            <span style="color: #2D8BA5; font-weight: 700;">Sent by</span>
+            <span style="color: #2D8BA5; font-weight: 400;"> <%= last_message.user.username %> </span>
+            <span style="color: #2D8BA5; font-weight: 700;">to</span>
+            <span style="color: #2D8BA5; font-weight: 400;">
+              <%= (last_message.user == match.user ? match.fish.user.username : match.user.username) %>
+            </span>
+          </span>
+          <span class="chat-date ms-2" style="color:#2D8BA5; border-bottom:none; text-decoration:none;">
+            <%= last_message.created_at.strftime("%d %b %H:%M") %>
+          </span>
+        </div>
+        <div class="chat-last-message small" style="max-width: 380px; color: #222;">
+          <strong style="color: #222;">Last Message:</strong>
+          <%= last_message.content.truncate(100) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <div style="height: 100px;"></div>
+</div>
