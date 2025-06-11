@@ -1,5 +1,4 @@
 <div>
-<div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
   <div style="display: flex; justify-content: center;">
   <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width:350px; width:100%;">
     <div class="carousel-inner">
@@ -74,11 +73,10 @@
       </div>
     </div>
   </div>
-  <% if @next_fish %>
-    <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
-  <% end %>
-  <% if @previous_fish %>
+  <% if @previous_fish.present? %>
     <div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
   <% end %>
-
-</div>
+  <% if @next_fish.present? %>
+    <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
+  <% end %>
+  </div>
