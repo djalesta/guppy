@@ -1,4 +1,3 @@
-
 <div data-controller="tabs">
   <h1 class="item text-center">Matches</h1>
 
@@ -32,7 +31,7 @@
           <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
 
             <% if match.fish.photos.attached? %>
-              <%= link_to chat_path(chat) do %>
+              <%= link_to root_path do %>
               <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
               <% end %>
             <% end %>
@@ -79,7 +78,7 @@
          <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
 
             <% if match.fish.photos.attached? %>
-              <%= link_to chat_path(chat) do %>
+              <%= link_to root_path do %>
               <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
               <% end %>
             <% end %>
