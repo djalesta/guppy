@@ -2,17 +2,17 @@
 <div class="container" style="max-width: 900px;">
 
   <h1 class="mb-4 text-center">My fish tank</h1>
-  <%= link_to "Upload new fish", new_user_fish_path, class: "primarybutton" %>
+  <%= link_to "Upload new fish", new_user_fish_path, class: "primarybutton", style: "margin-bottom: 20px;" %>
 
   <% @fish.each do |fish| %>
   <%= link_to fish_path(fish), style: "text-decoration: none; color: inherit;" do %>
-    <div class="card mb-2" style="border-radius: 10px;">
+    <div class="card mb-2" style="border-radius: 10px; ">
       <div class="card-body">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center" style="border-radius: 10px; max-width: 100%; overflow: hidden; box-sizing: border-box;">
 
           <div class="me-3">
             <% if fish.photos.attached? %>
-              <%= image_tag fish.photos.first, style: "width: 150px; height: 100px; object-fit: cover; border-radius: 20%; border: 2px solid #2D8BA5;" %>
+              <%= image_tag fish.photos.first, style: "width: 100px; height: 80px; object-fit: cover; border-radius: 20%; border: 2px solid #2D8BA5;" %>
             <% else %>
               <div style="width: 70px; height: 70px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #aaa;">
                 <i class="fa-solid fa-fish fa-2x"></i>
@@ -23,14 +23,24 @@
 
           <div class="flex-grow-1">
             <h5 class="mb-1"><%= fish.name %></h5>
-            <p class="mb-1"><%= fish.fish_description %></p>
+
             <div class="mb-1 small">
-              <strong>Color:</strong> <%= fish.color %> &nbsp;|&nbsp;
-              <strong>Length:</strong> <%= fish.length %> cm &nbsp;|&nbsp;
-              <strong>Sex:</strong> <%= fish.sex %> &nbsp;|&nbsp;
-              <strong>Latitude:</strong> <%= fish.latitude %> &nbsp;|&nbsp;
-              <strong>Longitude:</strong> <%= fish.longitude %> &nbsp;|&nbsp;
-              <strong>Available:</strong> <%= fish.availability ? "Yes" : "No" %>
+              <p>
+                    <em><%= fish.fish_description %> <br></em>
+                    <p></p>
+                    <i class="fa-solid fa-venus-mars" style="color: #2d8ba5 !important;"></i>
+                    <%= fish.sex.capitalize %>
+                    <i class="fa-solid fa-palette" style="color: #2d8ba5 !important;"></i>
+                    <%= fish.color.capitalize %> <br>
+                    <i class="fa-solid fa-ruler" style="color: #2d8ba5 !important;"></i>
+                    <%= fish.length %> cm
+                    <b>Available?</b>
+                    <% if fish.availability == true %>
+                      🟢
+                    <% else %>
+                      🔴
+                    <% end %>
+                </p>
             </div>
 
             <div class="d-flex gap-2 mt-2">
