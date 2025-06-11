@@ -32,12 +32,15 @@
 
 
       <!-- Location Dropdown (Stimulus Controlled) -->
-    <div class="dropdown ms-auto">
-      <div class="location-dropdown">
-        <%= link_to "View on map ˅", "/map", class:"no-underline?" %>
+              <div class="dropdown ms-auto">
+        <div class="location-dropdown">
+          <%= link_to "/map", class: "no-underline?" do %>
+            <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5; font-size: 30px;"></i>
+          <% end %>
+        </div>
       </div>
 
-    </div>
+
 
 
   </div>
@@ -48,18 +51,21 @@
   <h2 class="text-center">Single guppies in your area</h2>
 </div>
 
-
-
-<div class="fish-container py-3 d-flex flex-wrap gap-3 justify-content-center">
-  <% @fish.each do |fish| %>
-    <% if fish.photos.any? %>
-      <div class="item text-center">
-        <h5 class="fish-name"><%= fish.name %></h5>
-        <%= link_to fish_path(fish) do %>
-          <%= cl_image_tag(fish.photos.first.key, height: 300, width: 550, crop: :fill, gravity: :auto, class: "rounded-fish") %>
-        <% end %>
-      </div>
+<div class="fish-container py-3 px-1" style="background:#94D2E3; border-radius:18px;">
+  <div class="row justify-content-center g-1">
+    <% @fish.each do |fish| %>
+      <% if fish.photos.any? %>
+        <div class="col-6 px-1" style="max-width: 210px;">
+          <div class="item text-center"
+               style="background:#2d8ba5; border-radius:14px; padding:4px 2px 6px 2px; width:100%;">
+            <h5 style="color:#fff; font-weight:700; margin:0 0 0 0; line-height:1;"><%= fish.name %></h5>
+            <%= link_to fish_path(fish) do %>
+              <%= cl_image_tag(fish.photos.first.key, height: 110, width: 190, crop: :fill, gravity: :auto, class: "rounded img-fluid", style: "border-radius:10px; margin:0; display:block;" ) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
-<div style="height: 100px;"></div>
+<div style="height:100px;"></div>

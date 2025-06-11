@@ -1,25 +1,24 @@
 <div>
 
   <div style="display: flex; justify-content: center;">
-    <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <% @fish.photos.each_with_index do |photo, index| %>
-          <div class="carousel-item <%= 'active' if index == 0 %>">
-            <%= cl_image_tag(photo.key, height: 200, radius: 20, crop: :fill, background: "#94D2E3") %>
-          </div>
-        <% end %>
-      </div>
-
-      <% if @fish.photos.count > 1 %>
-        <button class="carousel-control-prev" type="button" data-bs-target="#fishCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#fishCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
+  <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width:350px; width:100%;">
+    <div class="carousel-inner">
+      <% @fish.photos.each_with_index do |photo, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <%= cl_image_tag(photo.key, height: 200, radius: 20, crop: :fill, background: "#94D2E3", style: "max-width:100%; height:auto; display:block; margin:auto;") %>
+        </div>
       <% end %>
     </div>
+    <% if @fish.photos.count > 1 %>
+      <button class="carousel-control-prev" type="button" data-bs-target="#fishCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#fishCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    <% end %>
   </div>
+</div>
 
   <div style="text-align: center;">
 
@@ -28,61 +27,57 @@
     </div>
 
     <div style="text-align: center; border-radius: 20px; padding: 10px; background-color: #FFFFFF">
+  <div>
+    <p><em><%= @fish.fish_description %></em></p>
+    <p>
+      <i class="fa-solid fa-venus-mars" style="color: #2d8ba5 !important;"></i>
+      <%= @fish.sex.capitalize %>
+      <i class="fa-solid fa-palette" style="color: #2d8ba5 !important;"></i>
+      <%= @fish.color.capitalize %> <br>
+      <i class="fa-solid fa-ruler" style="color: #2d8ba5 !important;"></i>
+      <%= @fish.length %> cm 
+      <b>Available?</b>
+      <% if @fish.availability == true %>
+        🟢
+      <% else %>
+        🔴
+      <% end %>
+    </p>
+
+    <%= link_to map_index_path(fish_id: @fish.id), { style: "text-decoration: none;" } do %>
+      <p>
+        <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important;"></i> Location
+      </p>
+    <% end %>
+
+    <div style="text-align: center;">
+      <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
+    </div>
+
+    <div class="user-info" style="display: flex; justify-content: center;">
       <div>
-        <p><em><%= @fish.fish_description %></em></p>
-        <p>
-          <b>Sex:</b> <%= @fish.sex.capitalize %> -
-          <b>Colour:</b> <%= @fish.color.capitalize %> <br>
-          <b>Length:</b> <%= @fish.length %> mm -
-          <b>Available?</b>
-          <% if @fish.availability == true %>
-            🟢
-          <% else %>
-            🔴
+        <%= link_to cl_image_tag(@fish.user.photo.key, height: 100, radius: 50, crop: :fill, background: "#FFFFFF"), user_path(@fish.user) %>
+      </div>
+      <div style="text-align: left;">
+        <h3>
+          <%= link_to @fish.user.username, public_user_profile_path(@fish.user), class: "text-decoration-none", style: "color: inherit;" %>
+          <% average_score = (@fish.user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
+          <% review_count = @fish.user.received_reviews.count %>
+          <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#reviewModal" }, class: "ms-2 text-decoration-none" do %>
+            <span style="font-size: 20px;">⭐</span>
+            <span style="font-size: 12px; color: #333;">
+              <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
+            </span>
           <% end %>
-        </p>
-
-        <%= link_to map_index_path(fish_id: @fish.id), { style: "text-decoration: none;" } do %>
-
-          <p>
-            <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important;"></i> Location
-          </p>
-        <% end %>
-
-        <div style="text-align: center;">
-          <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
-        </div>
-
-        <div class="user-info" style="display: flex; justify-content: center;">
-        <div>
-          <%= link_to cl_image_tag(@fish.user.photo.key, height: 100, radius: 50, crop: :fill, background: "#FFFFFF"), user_path(@fish.user) %>
-        </div>
-        <div style="text-align: left;">
-          <h3>
-            <%= link_to @fish.user.username, public_user_profile_path(@fish.user), class: "text-decoration-none", style: "color: inherit;" %>
-            <% average_score = (@fish.user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
-            <% review_count = @fish.user.received_reviews.count %>
-            <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#reviewModal" }, class: "ms-2 text-decoration-none" do %>
-              <span style="font-size: 20px;">⭐</span>
-              <span style="font-size: 12px; color: #333;">
-                <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
-              </span>
-            <% end %>
-          </h3>
-          <p><em><%= @fish.user.user_bio %></em></p>
-        </div>
+        </h3>
+        <p><em><%= @fish.user.user_bio %></em></p>
       </div>
-      </div>
-
-      <% if @next_fish %>
-        <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
-      <% end %>
-      <% if @previous_fish %>
-        <div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
-      <% end %>
-
     </div>
   </div>
+  <% if @next_fish %>
+    <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
+  <% end %>
+  <% if @previous_fish %>
+    <div id="previous_fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
+  <% end %>
 </div>
-
-<div style="height: 100px;"></div>

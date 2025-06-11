@@ -1,9 +1,9 @@
-<h1 class="inbox-title text-center mb-4">Your Chats</h1>
+<h1 class="inbox-title text-center mb-4">My chats</h1>
 <div class="inbox-list">
   <% @matches.each do |match| %>
     <% last_message = match.messages.last %>
     <% next unless last_message %>
-    <%= link_to match_path(match), class: "chat-preview d-flex align-items-center p-2 mb-2 rounded #{last_message.user != current_user ? 'unread' : 'read'}" do %>
+    <%= link_to match_path(match), class: "chat-preview d-flex align-items-center p-2 mb-2 rounded #{last_message.user != current_user ? 'unread' : 'read'}", style: "border-radius:10px !important;" do %>
       <div class="chat-image me-3">
         <% if match.fish.user.photo.present? %>
           <%= cl_image_tag(match.fish.user.photo.key, height: 56, width: 56, crop: :fill, radius: 28, background: "#FFFFFF", class: "avatar") %>
@@ -25,8 +25,7 @@
             <%= last_message.created_at.strftime("%d %b %H:%M") %>
           </span>
         </div>
-        <div class="chat-last-message small" style="max-width: 380px; color: #222;">
-          <strong style="color: #222;">Last Message:</strong>
+        <div class="chat-last-message small" style="max-width: 380px; color: #222; margin-top: 10px;">
           <%= last_message.content.truncate(100) %>
         </div>
       </div>

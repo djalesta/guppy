@@ -3,24 +3,19 @@
 </div>
 
 <div class="py-3, d-flex justify-content-center">
-  <%= cl_image_tag(@fish.photos.first.key, width: 400, height: 300, crop: :fill, class: "p-3 rounded-img-1") if @fish.photos.any? %>
+  <%= cl_image_tag(@fish.photos.first.key, width: 400, height: 300, crop: :fit, class: "p-3 rounded-img-1") if @fish.photos.any? %>
 </div>
 
 <%= simple_form_for [@fish, @match], url: fish_matches_path(@fish), local: true do |f| %>
 
-  <div class="row p-3">
-    <div class="col-md-6">
-      <%= f.input :start_date, as: :date, label: "Start date", input_html: { class: "form-control" } %>
-    </div>
+  <%= f.input :start_date, as: :string, label: "Start date", input_html: { class: "form-control", type: "date", style: "border-radius:10px;" } %>
+  <%= f.input :end_date, as: :string, label: "End date", input_html: { class: "form-control", type: "date", style: "border-radius:10px;" } %>
 
-    <div class="col-md-6">
-      <%= f.input :end_date, as: :date, label: "End date", input_html: { class: "form-control" } %>
-    </div>
 
     <div class="col-12">
       <div class="message-input mt-3">
         <%= f.fields_for :messages do |msg_form| %>
-          <%= msg_form.input :content, as: :text, label: "Write a message to the fish owner", input_html: { class: "form-control", rows: 4, placeholder: "Enter your message..." } %>
+          <%= msg_form.input :content, as: :text, label: "Write a message to the fish owner", input_html: { class: "form-control", rows: 4, placeholder: "Enter your message...", style: "border-radius: 10px;" } %>
           <%= msg_form.input :user_id, as: :hidden, input_html: { value: current_user.id }%>
         <% end %>
      </div>
