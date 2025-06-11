@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
 
   def index
-    @matches = Match.all.sort_by { |match| [match.user_id == current_user.id ? 1 : 0, -match.created_date.to_i] }
+    @matches = Match.all.sort_by { |match| [match.user_id == current_user.id ? 1 : 0, -match.created_at.to_i] }
   end
 
   def new
@@ -21,7 +21,7 @@ def create
 
    # have to manually set thing things after match.new
   if @match.save
-    redirect_to @fish, notice: "Match request created successfully!"
+    redirect_to matches_path, notice: "Match request created successfully!"
   else
     render :new, status: :unprocessable_entity
   end

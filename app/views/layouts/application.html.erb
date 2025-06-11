@@ -12,11 +12,14 @@
 
   <body>
     <div class="container p-3">
-    <% unless current_page?(root_path) %>
-      <%= render "shared/navbar" %>
-    <% end %>
-    <%= render "shared/flashes" %>
-    <%= yield %>
+      <% unless current_page?(root_path) %>
+        <%= render "shared/navbar" %>
+      <% end %>
+      <% unless current_page?(fish_index_path) || current_page?(root_path) || current_page?(questions_path)%>
+        <%= render "shared/backbutton" %>
+      <% end %>
+      <%= render "shared/flashes" %>
+      <%= yield %>
     </div>
   </body>
 </html>
