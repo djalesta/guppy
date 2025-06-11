@@ -5,19 +5,21 @@
   <%= link_to "Upload new fish", new_user_fish_path, class: "primarybutton" %>
 
   <% @fish.each do |fish| %>
-    <div class="card mb-2">
+  <%= link_to fish_path(fish), style: "text-decoration: none; color: inherit;" do %>
+    <div class="card mb-2" style="border-radius: 10px;">
       <div class="card-body">
         <div class="d-flex align-items-center">
 
           <div class="me-3">
             <% if fish.photos.attached? %>
-              <%= image_tag fish.photos.first, style: "width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 2px solid #2D8BA5;" %>
+              <%= image_tag fish.photos.first, style: "width: 150px; height: 100px; object-fit: cover; border-radius: 20%; border: 2px solid #2D8BA5;" %>
             <% else %>
               <div style="width: 70px; height: 70px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #aaa;">
                 <i class="fa-solid fa-fish fa-2x"></i>
               </div>
             <% end %>
           </div>
+           <% end %>
 
           <div class="flex-grow-1">
             <h5 class="mb-1"><%= fish.name %></h5>
