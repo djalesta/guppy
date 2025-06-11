@@ -15,7 +15,7 @@
       <% unless current_page?(root_path) %>
         <%= render "shared/navbar" %>
       <% end %>
-      <% unless current_page?(fish_index_path) || current_page?(root_path)%>
+      <% unless current_page?(fish_index_path) || current_page?(root_path) || current_page?(questions_path)%>
         <%= render "shared/backbutton" %>
       <% end %>
       <%= render "shared/flashes" %>
