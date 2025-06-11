@@ -6,26 +6,25 @@
     <%= image_tag "other_pics/filter-icon.jpg", alt: "Filter", class: "filter-image" %>
   <% end %>
 
-  <div class="dropdown-menu p-3 filter-dropdown" data-filter-target="dropdown">
+  <div class="dropdown-menu p-3 filter-dropdown" style= "width: calc(100vw - 80px)" data-filter-target="dropdown" >
     <%= simple_form_for :search, url: fish_index_path, method: :get, html: { class: "simple_form" } do |f| %>
-
       <div class="mb-2">
         <%= f.input :color, collection: Fish.distinct.pluck(:color), include_blank: "All", label: "Color", selected: @filters[:color], input_html: { class: "form-control" } %>
       </div>
 
       <div class="mb-2">
-        <%= f.input :sex, collection: ['Male', 'Female'], include_blank: "All", label: "Sex", selected: @filters[:sex],  input_html: { class: "form-control" } %>
+        <%= f.input :sex, collection: ['male', 'female'], include_blank: "All", label: "Sex", selected: @filters[:sex],  input_html: { class: "form-control" } %>
       </div>
 
       <div class="mb-2">
-        <%= f.input :length, as: :float, label: "Min Length", input_html: { class: "form-control" } %>
+        <%= f.input :length, as: :float, label: "Min. length (cm)", input_html: { class: "form-control", style: "width: calc(100vw - 200px)"} %>
       </div>
 
       <div class="mb-2">
-        <%= f.input :availability, collection: [["Available", true], ["Unavailable", false]], include_blank: "All", label: "Availability", selected: @filters[:availability], input_html: { class: "form-control" } %>
+        <%= f.input :availability, collection: [["available", true], ["unavailable", false]], include_blank: "All", label: "Availability", selected: @filters[:availability], input_html: { class: "form-control" } %>
       </div>
 
-      <%= f.button :submit, "Apply Filter", class: "btn btn-primary btn-sm w-100 mt-2" %>
+      <%= f.button :submit, "Apply filter", class: "primarybutton btn-sm w-100 mt-2" %>
     <% end %>
     </div>
    </div>

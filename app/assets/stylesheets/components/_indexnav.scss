@@ -45,13 +45,15 @@
     font-size: 1.2rem;
     border: none; /* No border */
     background: none; /* No background */
+
 }
 
 /* Dropdown Menu */
 .dropdown-content {
     position: absolute;
-    background-color: white;
+    background-color: none;
     min-width: 150px;
+    max-width: 200;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
     border-radius: 5px;
     top: 50px;
@@ -62,7 +64,7 @@
     display: block;
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .dropdown-content a:hover {
@@ -81,5 +83,33 @@
 .filter-dropdown {
   background-color: white;
   border-radius: 5px;
-  
+  width: 100%; /* Expands to full width */
+  max-width: 500px; /* Set a larger max width */
+  min-height: 300px; /* Increase height */
+  padding: 20px; /* Add extra spacing */
+}
+
+
+select {
+    color: gray !important; /* Changes the text color */
+    background-color: white !important; /* Sets background */
+    border: 1px solid $blue-light !important;
+    appearance: none; /* Removes default browser styles */
+    max-width: 200px;
+}
+
+/* Style the selected option */
+select option:checked {
+    background-color: $blue-light !important;
+    color: white !important;
+    appearance: none;
+    max-width: 200px;
+}
+
+/* Ensure dropdown text is correct */
+select option:focus {
+    background-color: $blue-light !important;
+    color: $blue-light !important;
+    appearance: none;
+    max-width: 200px;
 }
