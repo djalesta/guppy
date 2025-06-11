@@ -1,82 +1,106 @@
-<h1 class="item text-center">Matches</h1>
+<div data-controller="tabs">
+  <h1 class="item text-center">Matches</h1>
 
-<ul class="list-inline tabs-underlined">
-  <li>
-    <a href="#" class="tab-underlined active" onclick="showTab('active')">Active</a>
-  </li>
-  <li>
-    <a href="#" class="tab-underlined" onclick="showTab('past')">Past</a>
-  </li>
-</ul>
+  <ul class="list-inline tabs-underlined">
+    <li>
+      <a href="#" class="tab-underlined active" data-target="#active">Active</a>
+    </li>
+    <li>
+      <a href="#" class="tab-underlined" data-target="#past">Past</a>
+    </li>
+  </ul>
 
-<div id="active-tab" class="tab-content" style="padding: 5px;">
-  <fieldset>
-    <div>
-      <input type="checkbox" id="incoming" name="incoming" checked  onclick="toggleDiv()"/>
-      <label for="incoming">incoming</label>
+  <div data-controller="matches-filter" id="active" class="tab-content active" style="padding: 5px;">
+    <fieldset>
+      <div>
+        <input type="checkbox" id="pending" name="pending" checked
+        data-action="change->matches-filter#filterMatches"
+        data-matches-filter-target="checkbox"/>
+        <label for="pending">pending</label>
 
+        <input type="checkbox" id="confirmed" name="confirmed" checked
+        data-action="change->matches-filter#filterMatches"
+        data-matches-filter-target="checkbox"/>
+        <label for="confirmed">confirmed</label>
+      </div>
+    </fieldset>
 
-      <input type="checkbox" id="pending" name="pending" checked />
-      <label for="pending">pending</label>
-      <input type="checkbox" id="confirmed" name="confirmed" checked />
-      <label for="confirmed">confirmed</label>
-    </div>
-  </fieldset>
-</div>
+      <div>
+      <% @matches.each do |match| %>
+        <% if match.status == "pending" || match.status == "confirmed" %>
+          <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
 
-<div id="past-tab" class="tab-content" style="display: none; padding: 5px;">
-  <fieldset>
-    <div>
-      <input type="checkbox" id="completed" name="completed" checked />
-      <label for="completed">completed</label>
-      <input type="checkbox" id="expired" name="expired" />
-      <label for="expired">expired</label>
-      <input type="checkbox" id="declined" name="declined" />
-      <label for="declined">declined</label>
-    </div>
-  </fieldset>
-</div>
+            <% if match.fish.photos.attached? %>
+              <%= link_to root_path do %>
+              <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
+              <% end %>
+            <% end %>
 
-<div>
-<% @matches.each do |match| %>
-  <div class="notification">
+            <div class="notification-content" data-status="<%= match.status %>">
+              <% if match.user_id != current_user.id && match.status == "pending" %>
+              <span style="color: darkgreen; font-weight: bold;">Incoming request</span>
+              <% end %>
+              <p><small><%= match.created_date.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
+              <p> Start: <%= match.start_date.strftime("%B %d %Y") %> -
+                End: <%= match.end_date.strftime("%B %d %Y") %>
+              </p>
+            </div>
+          </div>
+              <% end %>
+            <% end %>
+        </div>
 
-     <% if match.fish.photos.attached? %>
-      <%= link_to fish_path(match.fish) do %>
-      <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
-      <% end %>
-     <% end %>
-
-    <div class="notification-content">
-       <% if match.user_id != current_user.id && match.status == "pending" %>
-    <span style="color: darkgreen; font-weight: bold;">Incoming match request</span>
-  <% end %>
-  <p><small><%= match.created_date.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
-    <p> Start: <%= match.start_date.strftime("%B %d %Y") %> -
-        End: <%= match.end_date.strftime("%B %d %Y") %>
-
-    </p>
- </div>
   </div>
-<% end %>
+
+  <div data-controller="matches-filter" id="past" class="tab-content" style="display: none; padding: 5px;">
+    <fieldset>
+      <div>
+        <input type="checkbox" id="completed" name="completed" checked
+        data-action="change->matches-filter#filterMatches"
+        data-matches-filter-target="checkbox"/>
+        <label for="completed">completed</label>
+
+        <input type="checkbox" id="expired" name="expired"
+        data-action="change->matches-filter#filterMatches"
+        data-matches-filter-target="checkbox"/>
+        <label for="expired">expired</label>
+
+        <input type="checkbox" id="declined" name="declined"
+        data-action="change->matches-filter#filterMatches"
+        data-matches-filter-target="checkbox" />
+        <label for="declined">declined</label>
+      </div>
+    </fieldset>
+
+    <div>
+      <% @matches.each do |match| %>
+          <% if match.status == "expired" || match.status == "declined" || match.status == "completed" %>
+         <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
+
+            <% if match.fish.photos.attached? %>
+              <%= link_to root_path do %>
+              <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
+              <% end %>
+            <% end %>
+
+            <div class="notification-content" data-status="<%= match.status %>">
+              <% if match.user_id != current_user.id && match.status == "pending" %>
+              <span style="color: darkgreen; font-weight: bold;">Incoming request</span>
+              <% end %>
+              <p><small><%= match.created_date.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
+              <p> Start: <%= match.start_date.strftime("%B %d %Y") %> -
+                End: <%= match.end_date.strftime("%B %d %Y") %>
+              </p>
+            </div>
+          </div>
+              <% end %>
+            <% end %>
+        </div>
+    </div>
+
+  </div>
+    <div id="incomingDiv" style="display: none;">This is the hidden div.</div>
+    <div style="height: 100px;"></div>
+  </div>
+
 </div>
-
-<div id="incomingDiv" style="display: none;">This is the hidden div.</div>
-
-</div>
-
-<script>
-  function showTab(tab) {
-    document.getElementById("active-tab").style.display = tab === "active" ? "block" : "none";
-    document.getElementById("past-tab").style.display = tab === "past" ? "block" : "none";
-  }
-</script>
-
-<script>
-  function toggleDiv() {
-    var checkbox = document.getElementById("incoming");
-    var div = document.getElementById("incomingDiv");
-
-    div.style.display = checkbox.checked ? "block" : "none";
-  }
-</script>

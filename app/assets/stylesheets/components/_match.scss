@@ -3,6 +3,14 @@
   overflow: hidden; /* Prevents corners from extending beyond the radius */
 }
 
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+
 .tabs-underlined {
   display: flex;
   align-items: center;
