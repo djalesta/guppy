@@ -3,11 +3,11 @@
     <h1>Meet and breed</h1>
     <h5>The 1st dating app for fish</h5>
 
-  <%= link_to (user_signed_in? ? fish_index_path : user_session_path) do %>
+
     <div class="video-container mb-4">
       <%= video_tag "swuppytheguppy.mp4", autoplay: true, loop: true, muted: true, class: "video", style: "border-radius: 20px;" %>
     </div>
-    <% end %>
+ 
 
     <% if user_signed_in? %>
       <h2 class="fw-bold mb-2">Welcome, <%= current_user.username %>!</h2>
