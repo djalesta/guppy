@@ -1,5 +1,5 @@
 .rounded-img-1 {
-  border-radius: 30px; /* Adjust the value for more roundness */
+  border-radius: 20px; /* Adjust the value for more roundness */
   overflow: hidden; /* Prevents corners from extending beyond the radius */
 }
 
@@ -57,11 +57,13 @@ input[type="checkbox"] {
   background: white;
   padding: 8px 16px;
   border: 1px solid rgb(235,235,235);
+  display: flex;
+  align-items: center;
 }
 
 .notification .notification-content {
   font-family: $body-font;
-  flex-grow: 1;
+  flex-grow: 0;
   padding: 0 24px;
 }
 
@@ -96,4 +98,3 @@ input[type="checkbox"] {
 .notification .notification-actions a:hover {
   color: #555555;
 }
-

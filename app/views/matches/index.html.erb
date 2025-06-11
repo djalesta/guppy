@@ -1,5 +1,5 @@
 <div data-controller="tabs">
-  <h1 class="item text-center">Matches</h1>
+  <h1 style="text-align: center;">Matches</h1>
 
   <ul class="list-inline tabs-underlined">
     <li>
@@ -28,10 +28,10 @@
       <div>
       <% @matches.each do |match| %>
         <% if match.status == "pending" || match.status == "confirmed" %>
-          <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
+          <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification" style="border-radius: 10px;">
 
             <% if match.fish.photos.attached? %>
-              <%= link_to root_path do %>
+              <%= link_to match_path(match) do %>
               <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
               <% end %>
             <% end %>
@@ -40,7 +40,7 @@
               <% if match.user_id != current_user.id && match.status == "pending" %>
               <span style="color: darkgreen; font-weight: bold;">Incoming request</span>
               <% end %>
-              <p><small><%= match.created_date.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
+              <p><small><%= match.created_at.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
               <p> Start: <%= match.start_date.strftime("%B %d %Y") %> -
                 End: <%= match.end_date.strftime("%B %d %Y") %>
               </p>
@@ -75,10 +75,9 @@
     <div>
       <% @matches.each do |match| %>
           <% if match.status == "expired" || match.status == "declined" || match.status == "completed" %>
-         <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification">
-
+         <div class="notification" data-status="<%= match.status %>" data-matches-filter-target="notification" style="border-radius: 10px;>
             <% if match.fish.photos.attached? %>
-              <%= link_to root_path do %>
+              <%= link_to match_path(match) do %>
               <%= image_tag match.fish.photos.first, style: "width: 100px; height: 80px; border-radius: 20px; object-fit: cover;"  %>
               <% end %>
             <% end %>
@@ -87,7 +86,7 @@
               <% if match.user_id != current_user.id && match.status == "pending" %>
               <span style="color: darkgreen; font-weight: bold;">Incoming request</span>
               <% end %>
-              <p><small><%= match.created_date.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
+              <p><small><%= match.created_at.strftime("%B %d %Y") %> - <strong><%= match.status %></strong></small> </p>
               <p> Start: <%= match.start_date.strftime("%B %d %Y") %> -
                 End: <%= match.end_date.strftime("%B %d %Y") %>
               </p>
