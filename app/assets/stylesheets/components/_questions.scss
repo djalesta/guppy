@@ -1,22 +1,34 @@
 .chatbot {
   background: white;
-  margin-top: 9px;
-  height: calc(100vh - 75px);
+  margin-top: 3px;
+  margin-bottom: 3px;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 
-  h1 {
-    border-bottom: 1px solid $gray-200;
-    margin-bottom: 0;
-    padding: 1rem;
-  }
+  // h1 {
+  //   border-bottom: 1px solid $gray-200;
+  //   margin-bottom: 0;
+  //   padding: 1rem;
+  // }
 
   #questions {
     height: 100%;
     overflow: scroll;
     padding: 1rem;
+
+    &::-webkit-scrollbar {
+    display: none;
+    }
+
+    // Hide scrollbar in Firefox
+    scrollbar-width: none;
+
+    // Hide scrollbar in IE/Edge (older versions)
+    -ms-overflow-style: none;
+
   }
 
   .question {
@@ -52,4 +64,8 @@
       margin-bottom: 0;
     }
   }
+  .input-box-ai{
+    border-radius: 16px;
+  }
+
 }
