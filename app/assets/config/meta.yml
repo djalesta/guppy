@@ -1,0 +1,5 @@
+# config/meta.yml
+meta_product_name: "Swuppy The Guppy"
+meta_title: "Meet and breed - The first dating app for guppy fish"
+meta_description: "Find other fish owners near you"
+meta_image: "cover.png" # should exist in `app/assets/images/`
