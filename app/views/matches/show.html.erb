@@ -8,7 +8,6 @@
 <%= turbo_stream_from "match_#{@match.id}_messages" %>
 <div id="messages" style="background:#fff; border-radius:18px; min-height:350px; max-height:64vh; overflow-y:auto; margin-bottom:12px; padding:14px;">
   <% @match.messages.each do |message| %>
-  <% next if message.created_at > 2.seconds.ago && message.user == current_user %>
   <% if message.user == current_user %>
 
       <div style="display:flex; margin-bottom:10px; justify-content:flex-end;">
