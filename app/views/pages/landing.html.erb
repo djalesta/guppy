@@ -1,21 +1,21 @@
-<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-  <div class="text-center">
-    <h1>Meet and breed</h1>
-    <h5>The 1st dating app for fish</h5>
-
-
-    <div class="video-container mb-4">
-      <%= video_tag "swuppytheguppy.mp4", autoplay: true, loop: true, muted: true, class: "video", style: "border-radius: 20px;" %>
-    </div>
- 
-
-    <% if user_signed_in? %>
-      <h2 class="fw-bold mb-2">Welcome, <%= current_user.username %>!</h2>
-      <%= link_to "Let's breed!", fish_index_path, class: "primarybutton d-inline-block mb-2" %><br>
-      <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-muted small d-inline-block mt-2" %>
-    <% else %>
-      <%= link_to "Log in", user_session_path, class: "primarybutton mb-2" %><br>
-      <p>Don't have an account? <%= link_to "Sign up!", new_user_registration_path %></p>
-    <% end %>
+<div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+  <div>
+    <h1>Swuppy The Guppy</h1>
   </div>
+
+    <div style="border-radius: 20px;">
+      <%= image_tag "other_pics/Guppy.gif", style: "display: block; margin: auto; border-radius: 20px; padding: 20px;" %>
+   </div>
+
+  <div style="text-align: center">
+      <% if user_signed_in? %>
+        <h2 class="fw-bold mb-2">Welcome, <%= current_user.username %>!</h2>
+        <%= link_to "Meet & breed", fish_index_path, class: "primarybutton d-inline-block mb-2" %><br>
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-muted small d-inline-block mt-2" %>
+      <% else %>
+        <%= link_to "Log in", user_session_path, class: "primarybutton mb-2" %><br>
+        <p>Don't have an account? <%= link_to "Sign up!", new_user_registration_path %></p>
+      <% end %>
+  </div>
+
 </div>

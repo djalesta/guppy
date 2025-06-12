@@ -1,5 +1,5 @@
 .rounded-img-1 {
-  border-radius: 20px; /* Adjust the value for more roundness */
+  border-radius: 30px; /* Adjust the value for more roundness */
   overflow: hidden; /* Prevents corners from extending beyond the radius */
 }
 
@@ -97,4 +97,30 @@ input[type="checkbox"] {
 
 .notification .notification-actions a:hover {
   color: #555555;
+}
+
+#bubble-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  overflow: hidden;
+  pointer-events: auto; 
+}
+
+.bubble {
+  position: absolute;
+  background-color: rgba(0, 150, 255, 0.7);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  opacity: 1;
+  animation: bubble-animation 2s linear forwards;
+}
+
+@keyframes bubble-animation {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
 }

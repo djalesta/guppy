@@ -1,4 +1,9 @@
 .back-image {
   width: 40px;
-  height: 40px
+  height: 40px;
+  background: transparent; /* Removes background color */
+  position: absolute; /* Ensures it sits over the content */
+  top: 0; /* Sticks it to the top */
+  z-index: 1000;
+  padding-top: 15px;
 }
