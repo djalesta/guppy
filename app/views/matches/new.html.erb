@@ -11,7 +11,6 @@
   <%= f.input :start_date, as: :string, label: "Start date", input_html: { class: "form-control", type: "date", style: "border-radius:10px;" } %>
   <%= f.input :end_date, as: :string, label: "End date", input_html: { class: "form-control", type: "date", style: "border-radius:10px;" } %>
 
-
     <div class="col-12">
       <div class="message-input mt-3">
         <%= f.fields_for :messages do |msg_form| %>
@@ -26,5 +25,5 @@
     </div>
     <div style="height: 100px;"></div>
   </div>
-
+  
 <% end %>
