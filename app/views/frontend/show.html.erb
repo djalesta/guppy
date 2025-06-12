@@ -58,22 +58,21 @@
 <%= simple_form_for [@match, @message],
   html: {
     class: "message-form d-flex align-items-center mt-3",
-    style: "gap:8px;"
+    style: "gap:8px; margin-bottom:10px;"
   },
   data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |f| %>
   <%= f.text_area :content,
     placeholder: "Write a message...",
     class: "message-input",
-
-    style: "border-radius:16px; background:#f8fdff; width:100%; font-size:1.14em; padding:14px 18px; flex:1 1 0; border:none;"
+    rows: 4,
+    style: "border-radius:16px; background:#f8fdff; width:100%; font-size:1.14em; padding:14px 18px; flex:1 1 0; border:none; min-height:80px; resize:vertical;"
   %>
   <button type="submit"
     style="background:#2D8BA5; border-radius:16px; border:none; color:#fff; min-width:60px; height:72px; font-size:1.5em; flex-shrink:0; display: flex; align-items: center; justify-content: center;">
     <i class="fa-solid fa-share" style="font-size:22px; color: #fff !important;"></i>
   </button>
 <% end %>
-
-<div style="height: 100px;"></div>
+<div style="height: 70px;"></div>
 <script>
 function scrollMessagesToBottom() {
   var container = document.getElementById('messages');
