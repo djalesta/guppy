@@ -35,7 +35,11 @@
           <i class="fa-solid fa-ruler" style="color: #2d8ba5 !important;"></i>
           <%= @fish.length %> cm
           <b>Available?</b>
-          <%= @fish.availability ? '🟢' : '🔴' %>
+          <% if @fish.availability == true %>
+            🟢
+          <% else %>
+            🔴
+          <% end %>
         </p>
 
         <%= link_to map_index_path(fish_id: @fish.id), style: "text-decoration: none;" do %>
@@ -79,7 +83,7 @@
   </div>
 </div>
 
-<!-- 👇 Swipe Script doğrudan HTML'de -->
+
 <script>
   document.addEventListener("turbo:load", () => {
     const swipeArea = document.querySelector(".swipe-area");
