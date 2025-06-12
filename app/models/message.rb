@@ -1,7 +1,9 @@
 class Message < ApplicationRecord
   belongs_to :match
   belongs_to :user
-  after_create_commit :broadcast_message
+  after_create_commit :broadcast_message, unless: :skip_broadcast
+
+  attr_accessor :skip_broadcast
 
   private
 
