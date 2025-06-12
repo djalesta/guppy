@@ -1,10 +1,9 @@
 <%= simple_form_for question do |f| %>
-  <div class="input-group mb-3 w-100">
-    <div class="form-floating">
-      <%= f.input :user_question, label: false, wrapper: false %>
+  <div class="d-flex align-items-stretch w-100 mb-3 gap-2">
+    <div class="form-floating flex-grow-1">
+      <%= f.input :user_question, label: false, wrapper: false, input_html: { class: "form-control h-100 input-box-ai" } %>
       <%= f.label :user_question, "Your question" %>
     </div>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary" %>
+    <%= f.submit "Ask", id: "new-question-button", style: "background:#2D8BA5; border-radius:16px; border:none; color:#fff; min-width:55px; height:60px; font-size:1.0em; flex-shrink:0; display:flex; align-items:center; justify-content:center;" %>
   </div>
 <% end %>
-
