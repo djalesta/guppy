@@ -2,7 +2,7 @@
   background: white;
   margin-top: 3px;
   margin-bottom: 3px;
-  height: calc(100vh - 75px);
+  // height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,7 +18,7 @@
     height: 100%;
     overflow: scroll;
     padding: 1rem;
-
+    max-height: 60vh;
     &::-webkit-scrollbar {
     display: none;
     }
