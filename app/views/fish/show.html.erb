@@ -1,82 +1,145 @@
-<div>
+<div class="swipe-area">
   <div style="display: flex; justify-content: center;">
-  <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width:350px; width:100%;">
-    <div class="carousel-inner">
-      <% @fish.photos.each_with_index do |photo, index| %>
-        <div class="carousel-item <%= 'active' if index == 0 %>">
-          <%= cl_image_tag(photo.key, height: 200, radius: 20, crop: :fill, background: "#94D2E3", style: "max-width:100%; height:auto; display:block; margin:auto;") %>
-        </div>
+    <div id="fishCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width:350px; width:100%;">
+      <div class="carousel-inner">
+        <% @fish.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= cl_image_tag(photo.key, height: 200, radius: 20, crop: :fill, background: "#94D2E3", style: "max-width:100%; height:auto; display:block; margin:auto;") %>
+          </div>
+        <% end %>
+      </div>
+      <% if @fish.photos.count > 1 %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#fishCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#fishCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
       <% end %>
     </div>
-    <% if @fish.photos.count > 1 %>
-      <button class="carousel-control-prev" type="button" data-bs-target="#fishCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#fishCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    <% end %>
   </div>
-</div>
 
   <div style="text-align: center;">
-
     <div>
       <h2 style="padding-top: 5px;"><%= @fish.name %></h2>
     </div>
 
     <div style="text-align: center; border-radius: 20px; padding: 10px; background-color: #FFFFFF">
-  <div>
-    <p><em><%= @fish.fish_description %></em></p>
-    <p>
-      <i class="fa-solid fa-venus-mars" style="color: #2d8ba5 !important;"></i>
-      <%= @fish.sex.capitalize %>
-      <i class="fa-solid fa-palette" style="color: #2d8ba5 !important;"></i>
-      <%= @fish.color.capitalize %> <br>
-      <i class="fa-solid fa-ruler" style="color: #2d8ba5 !important;"></i>
-      <%= @fish.length %> cm
-      <b>Available?</b>
-      <% if @fish.availability == true %>
-        🟢
-      <% else %>
-        🔴
-      <% end %>
-    </p>
-
-    <%= link_to map_index_path(fish_id: @fish.id), { style: "text-decoration: none;" } do %>
-      <p>
-        <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important;"></i> Location
-      </p>
-    <% end %>
-
-    <div style="text-align: center;">
-      <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
-    </div>
-
-    <div class="user-info" style="display: flex; justify-content: center;">
       <div>
-        <%= link_to cl_image_tag(@fish.user.photo.key, height: 100, radius: 50, crop: :fill, background: "#FFFFFF"), user_path(@fish.user) %>
-      </div>
-      <div style="text-align: left;">
-        <h3>
-          <%= link_to @fish.user.username, public_user_profile_path(@fish.user), class: "text-decoration-none", style: "color: inherit;" %>
-          <% average_score = (@fish.user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
-          <% review_count = @fish.user.received_reviews.count %>
-          <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#reviewModal" }, class: "ms-2 text-decoration-none" do %>
-            <span style="font-size: 20px;">⭐</span>
-            <span style="font-size: 12px; color: #333;">
-              <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
-            </span>
+        <p><em><%= @fish.fish_description %></em></p>
+        <p>
+          <i class="fa-solid fa-venus-mars" style="color: #2d8ba5 !important;"></i>
+          <%= @fish.sex.capitalize %>
+          <i class="fa-solid fa-palette" style="color: #2d8ba5 !important;"></i>
+          <%= @fish.color.capitalize %> <br>
+          <i class="fa-solid fa-ruler" style="color: #2d8ba5 !important;"></i>
+          <%= @fish.length %> cm
+          <b>Available?</b>
+          <% if @fish.availability == true %>
+            🟢
+          <% else %>
+            🔴
           <% end %>
-        </h3>
-        <p><em><%= @fish.user.user_bio %></em></p>
+        </p>
+
+        <%= link_to map_index_path(fish_id: @fish.id), style: "text-decoration: none;" do %>
+          <p>
+            <i class="fa-solid fa-map-location-dot" style="color: #2d8ba5 !important;"></i> Location
+          </p>
+        <% end %>
+
+        <div style="text-align: center;">
+          <%= link_to "Let's make babies!", new_fish_match_path(@fish.id), class: "primarybutton" %>
+        </div>
+
+        <div class="user-info" style="display: flex; justify-content: center;">
+          <div>
+            <%= link_to cl_image_tag(@fish.user.photo.key, height: 100, radius: 50, crop: :fill, background: "#FFFFFF"), user_path(@fish.user) %>
+          </div>
+          <div style="text-align: left; margin-left: 10px;">
+            <h3>
+              <%= link_to @fish.user.username, public_user_profile_path(@fish.user), class: "text-decoration-none", style: "color: inherit;" %>
+              <% average_score = (@fish.user.received_reviews.average(:score).to_f * 2).round / 2.0 %>
+              <% review_count = @fish.user.received_reviews.count %>
+              <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#reviewModal" }, class: "ms-2 text-decoration-none" do %>
+                <span style="font-size: 20px;">⭐</span>
+                <span style="font-size: 12px; color: #333;">
+                  <%= review_count > 0 ? average_score : "0" %> (<%= review_count %>)
+                </span>
+              <% end %>
+            </h3>
+            <p><em><%= @fish.user.user_bio %></em></p>
+          </div>
+        </div>
       </div>
+
+      <% if @previous_fish.present? %>
+        <div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
+      <% end %>
+      <% if @next_fish.present? %>
+        <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
+      <% end %>
     </div>
   </div>
-  <% if @previous_fish.present? %>
-    <div id="previous-fish" data-url="<%= fish_path(@previous_fish) %>" style="display: none;"></div>
-  <% end %>
-  <% if @next_fish.present? %>
-    <div id="next-fish" data-url="<%= fish_path(@next_fish) %>" style="display: none;"></div>
-  <% end %>
-  </div>
+</div>
+
+
+<script>
+  document.addEventListener("turbo:load", () => {
+    const swipeArea = document.querySelector(".swipe-area");
+    if (!swipeArea) return;
+
+    let startX = 0;
+    let startY = 0;
+
+    swipeArea.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    swipeArea.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      handleSwipe(startX, endX, startY, endY);
+    });
+
+    swipeArea.addEventListener("mousedown", e => {
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    swipeArea.addEventListener("mouseup", e => {
+      const endX = e.clientX;
+      const endY = e.clientY;
+      handleSwipe(startX, endX, startY, endY);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        const prevEl = document.getElementById("previous-fish");
+        if (prevEl?.dataset.url) window.location.href = prevEl.dataset.url;
+      } else if (e.key === "ArrowRight") {
+        const nextEl = document.getElementById("next-fish");
+        if (nextEl?.dataset.url) window.location.href = nextEl.dataset.url;
+      }
+    });
+
+    function handleSwipe(startX, endX, startY, endY) {
+      const threshold = 50;
+      const verticalLimit = 30;
+
+      const deltaX = endX - startX;
+      const deltaY = endY - startY;
+
+      if (Math.abs(deltaX) < threshold || Math.abs(deltaY) > verticalLimit) return;
+
+      if (deltaX > 0) {
+        const prevEl = document.getElementById("previous-fish");
+        if (prevEl?.dataset.url) window.location.href = prevEl.dataset.url;
+      } else {
+        const nextEl = document.getElementById("next-fish");
+        if (nextEl?.dataset.url) window.location.href = nextEl.dataset.url;
+      }
+    }
+  });
+</script>
