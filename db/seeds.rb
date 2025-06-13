@@ -277,7 +277,7 @@ fishes = Fish.all
 fishes.each do |fish|
   reviewers = users.where.not(id: fish.user_id).sample(5)
   reviewers.each do |reviewer|
-    match = Match.create!(user: reviewer, fish: fish)
+    match = Match.create!(user: reviewer, fish: fish, start_date: Date.today, end_date: 3.days.from_now)
     Review.create!(
       user: reviewer,
       match: match,
